@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مشاهدة Dr. Stone - Anime On</title>
+    <link rel="stylesheet" href="episode-style.css">
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="anime-header">
+            <div class="anime-info">
+                <h1>Dr. Stone </h1>
+                <p>بعد آلاف السنين من تحجر البشرية، يستيقظ العبقري "سينكو" ليبدأ رحلة إعادة بناء الحضارة من الصفر باستخدام العلم. مغامرة مليئة بالاختراعات والتحديات!</p>
+                
+                <div class="anime-meta">
+                    <span style="color: #ffcc00;">الحالة:</span> مستمر | 
+                    <span style="color: #ffcc00;">الموسم:</span> شتاء 2019 |
+                    <span style="color: #ffcc00;">التصنيف:</span> خيال علمي، مغامرة
+                </div>
+            </div>
+            
+            <div class="anime-poster">
+                <img src="https://share.google/OZiFRCBxchAlIMmWC" alt="Dr. Stone Poster" style="width: 200px;">
+            </div>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+<div class="main-content-wrapper">
+
+    <div class="video-area">
+        <h3>اختر سيرفر المشاهدة:</h3>
+        <div class="server-buttons">
+            <button class="server-button" onclick="changeServer('url1')">سيرفر 1</button>
+            <button class="server-button" onclick="changeServer('url2')">سيرفر 2</button>
+            <button class="server-button" onclick="changeServer('url3')">سيرفر 3</button>
+        </div>
+
+        <div class="player-box">
+            <iframe id="main-player" src="https://www.youtube.com/embed/tgbNymZ7vqY" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <div class="episode-sidebar">
+        <h3>قائمة الحلقات</h3>
+        <div class="episode-list">
+            <a href="#" class="ep-item active">الحلقة 1</a>
+            <a href="#" class="ep-item">الحلقة 2</a>
+            <a href="#" class="ep-item">الحلقة 3</a>
+            <a href="#" class="ep-item">الحلقة 4</a>
+            <a href="#" class="ep-item">الحلقة 5</a>
+        </div>
+    </div>
+
+</div>
+    </script>
+    function changeServer(url) {
+        document.getElementById('main-player').src = url;
+    }
+<div class="navigation-buttons" style="margin-top: 20px; display: flex; justify-content: center; gap: 20px;">
+    <button class="server-button">الحلقة السابقة</button>
+    <button class="server-button">الحلقة التالية</button>
+    </div>
+    <div class="comments-section">
+    <h3>التعليقات:</h3>
+    
+    <div class="comment-input">
+        <textarea placeholder="اكتب رأيك في الحلقة..."></textarea>
+        <button class="server-button">نشر التعليق</button>
+    </div>
+
+    <div class="user-comment">
+        <strong>أحمد:</strong>
+        <p>حلقة خرافية! سينكو دائمًا بيبهرنا بذكائه. 🔥</p>
+    </div>
+</div>
+<div class="recommended-section">
+    <h3 class="section-title">أنميات مشابهة قد تعجبك</h3>
+    <div id="real-content" class="anime-grid">
+        <div class="anime-card">
+            <div class="card-img">
+                <img src="https://image-url-here.jpg" alt="Anime Name">
+                <span class="type">مغامرات</span>
+            </div>
+            <h4>اسم الأنمي هنا</h4>
+            <a href="#" class="view-btn">مشاهدة الآن</a>
+        </div>
+    </div>
+<div id="skeleton-wrapper" class="anime-grid">
+    <div class="skeleton-card">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-btn"></div>
+    </div>
+    <div class="skeleton-card">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-text"></div>
+        <div class="skeleton-btn"></div>
+    </div>
+    </div>
+        <div class="anime-card">
+            <div class="card-img">
+                <img src="https://another-image-url.jpg" alt="Anime Name">
+                <span class="type">خيال علمي</span>
+            </div>
+            <h4>اسم أنمي ثاني</h4>
+            <a href="#" class="view-btn">مشاهدة الآن</a>
+        </div>
+        </div>
+</div>
+<script>
+    // دالة لتغيير الحلقة (وتلوين الزرار اللي ضغطت عليه)
+    function changeEpisode(videoUrl, element) {
+        // 1. تغيير فيديو المشغل
+        document.getElementById('main-player').src = videoUrl;
+
+        // 2. شيل اللون الأخضر (active) من كل الحلقات
+        let allEpisodes = document.querySelectorAll('.ep-item');
+        allEpisodes.forEach(ep => {
+            ep.classList.remove('active');
+        });
+
+        // 3. حط اللون الأخضر على الحلقة اللي ضغطت عليها حالياً
+        element.classList.add('active');
+    }
+
+    // دالة لتغيير السيرفر (بتغير الفيديو بس وتخلي الحلقة زي ما هي)
+    function changeServer(url) {
+        document.getElementById('main-player').src = url;
+    }
+</script>
+</body>
+</html>
