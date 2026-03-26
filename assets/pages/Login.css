@@ -1,0 +1,91 @@
+/* استخدام خط كايرو العربي من جوجل */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Cairo", sans-serif;
+  background: #0b0c10; /* خلفية داكنة جداً */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  direction: rtl; /* اتجاه الكتابة عربي */
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.05); /* تأثير زجاجي خفيف */
+  backdrop-filter: blur(15px); /* تغبيش الخلفية */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 40px;
+  width: 350px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+
+h2 {
+  color: #45f3ff; /* لون شعار أنمي أون المضيء */
+  text-shadow: 0 0 10px rgba(69, 243, 255, 0.5);
+  margin-bottom: 30px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  outline: none;
+  transition: 0.3s;
+  box-sizing: border-box; /* لضمان عدم خروج الحواف */
+}
+
+input:focus {
+  border-color: #45f3ff;
+  box-shadow: 0 0 8px rgba(69, 243, 255, 0.3);
+}
+
+/* زر تسجيل الدخول */
+.login-btn {
+  width: 100%;
+  padding: 12px;
+  background: #45f3ff;
+  border: none;
+  border-radius: 8px;
+  color: #0b0c10;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-decoration: none; /* لإزالة خط الرابط */
+  display: block; /* ليعامل ككتلة واحدة */
+  margin-top: 15px;
+}
+
+.login-btn:hover {
+  background: #33c7d1;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(69, 243, 255, 0.4);
+}
+
+.links {
+  margin-top: 20px;
+}
+
+.links a {
+  color: #888;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 0 10px;
+  transition: 0.3s;
+}
+
+.links a:hover {
+  color: #45f3ff;
+}

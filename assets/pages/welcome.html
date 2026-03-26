@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تم تفعيل الحساب | Anime On</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../assets/css/welcome.css" />
+  </head>
+  <body>
+    <div class="welcome-card">
+      <div class="icon-check">✓</div>
+      <h1>تم تفعيل حسابك بنجاح!</h1>
+      <p>
+        مرحباً بك في عائلة <b>Anime On</b>. يمكنك الآن الاستمتاع بمشاهدة ومتابعة
+        أنمياتك المفضلة.
+      </p>
+
+      <a href="../index.html" class="go-home-btn">ابدأ المشاهدة الآن</a>
+    </div>
+    <script>
+      window.onload = function () {
+        // 1. استخراج البيانات من رابط الصفحة (URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get("name");
+        const email = urlParams.get("email");
+        const pass = urlParams.get("pass");
+
+        // 2. إذا كانت البيانات موجودة (يعني قادم من الإيميل فعلاً)
+        if (email && pass) {
+          // حفظ الحساب في ذاكرة المتصفح للأبد
+          localStorage.setItem("userEmail", email);
+          localStorage.setItem("userPassword", pass);
+          localStorage.setItem("userName", name);
+
+          // تسجيل الدخول تلقائياً
+          localStorage.setItem("isLoggedIn", "true");
+
+          console.log("تم حفظ الحساب وتأكيده بنجاح!");
+        }
+      };
+    </script>
+  </body>
+</html>
