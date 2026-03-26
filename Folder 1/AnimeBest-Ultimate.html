@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnimeBest Ultimate - منصة الأنمي الاحترافية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           ROOT VARIABLES & RESET
+           ============================================ */
+        :root {
+            --primary: #a855f7;
+            --secondary: #06b6d4;
+            --dark: #0f172a;
+            --darker: #020617;
+            --gray-900: #111827;
+            --gray-800: #1f2937;
+            --gray-700: #374151;
+            --gray-600: #4b5563;
+            --gray-500: #6b7280;
+            --gray-400: #9ca3af;
+            --gray-300: #d1d5db;
+            --gray-200: #e5e7eb;
+            --gray-100: #f3f4f6;
+            --white: #ffffff;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0c4a6e 100%);
+            background-attachment: fixed;
+            color: var(--gray-300);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+        }
+
+        body.light-mode {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%);
+            color: var(--gray-800);
+        }
+
+        /* ============================================
+           LOGIN PAGE STYLES
+           ============================================ */
+        .login-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f172a 0%, #581c87 50%, #0c4a6e 100%);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        body.light-mode .login-container {
+            background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #d1d5db 100%);
+        }
+
+        .login-container.show {
+            display: flex;
+        }
+
+        .login-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 1000px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .login-form-side {
+            background: rgba(31, 41, 55, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 1rem;
+            padding: 3rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 41, 55, 0.37);
+        }
+
+        body.light-mode .login-form-side {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .login-info-side {
+            color: var(--white);
+            text-align: center;
+        }
+
+        body.light-mode .login-info-side {
+            color: var(--gray-900);
+        }
+
+        .login-info-side h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .login-info-side p {
+            font-size: 1.1rem;
+            color: var(--gray-400);
+            margin-bottom: 2rem;
+        }
+
+        body.light-mode .login-info-side p {
+            color: var(--gray-600);
+        }
+
+        .login-features {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+        }
+
+        .feature-text h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+            color: var(--white);
+        }
+
+        body.light-mode .feature-text h3 {
+            color: var(--gray-900);
+        }
+
+        .feature-text p {
+            font-size: 0.9rem;
+            color: var(--gray-400);
+        }
+
+        body.light-mode .feature-text p {
+            color: var(--gray-600);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        body.light-mode .form-group label {
+            color: var(--gray-800);
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            background: rgba(31, 41, 55, 0.5);
+            color: var(--white);
+            border-radius: 0.5rem;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .form-group input,
+        body.light-mode .form-group select {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--gray-800);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .form-group input::placeholder {
+            color: var(--gray-500);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+        }
+
+        .form-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid rgba(168, 85, 247, 0.2);
+        }
+
+        .form-tab {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Cairo', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-tab.active {
+            color: var(--secondary);
+        }
+
+        .form-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .form-content {
+            display: none;
+        }
+
+        .form-content.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 400;
+            font-size: 0.95rem;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+
+        .forgot-password {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: var(--primary);
+        }
+
+        .close-login {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 2001;
+        }
+
+        body.light-mode .close-login {
+            color: var(--gray-900);
+        }
+
+        .close-login:hover {
+            transform: rotate(90deg);
+            color: var(--danger);
+        }
+
+        /* ============================================
+           MAIN PAGE STYLES
+           ============================================ */
+        .main-content {
+            display: block;
+        }
+
+        .main-content.hidden {
+            display: none;
+        }
+
+        /* Trending Ticker */
+        .trending-ticker {
+            background: linear-gradient(90deg, rgba(168, 85, 247, 0.1), rgba(6, 182, 212, 0.1));
+            padding: 1rem 2rem;
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            overflow: hidden;
+            position: sticky;
+            top: 0;
+            z-index: 99;
+        }
+
+        .ticker-content {
+            display: flex;
+            gap: 2rem;
+            animation: scroll 20s linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--secondary);
+            font-weight: 600;
+        }
+
+        /* Navigation */
+        nav {
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+            position: sticky;
+            top: 60px;
+            z-index: 100;
+            padding: 1rem 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 41, 55, 0.37);
+        }
+
+        body.light-mode nav {
+            background: rgba(255, 255, 255, 0.7);
+            border-bottom-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a855f7, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--gray-300);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        body.light-mode .nav-links a {
+            color: var(--gray-700);
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            background: rgba(31, 41, 55, 0.5);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 0.5rem;
+            padding: 0.5rem 1rem;
+            gap: 0.5rem;
+            min-width: 250px;
+        }
+
+        body.light-mode .search-bar {
+            background: rgba(255, 255, 255, 0.7);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            color: var(--white);
+            outline: none;
+            flex: 1;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body.light-mode .search-bar input {
+            color: var(--gray-800);
+        }
+
+        .search-bar input::placeholder {
+            color: var(--gray-500);
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+        }
+
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(6, 182, 212, 0.1);
+            transform: translateY(-3px);
+        }
+
+        .theme-toggle {
+            background: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(6, 182, 212, 0.1);
+            transform: scale(1.05);
+        }
+
+        /* User Profile Dropdown */
+        .user-profile {
+            position: relative;
+        }
+
+        .profile-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(168, 85, 247, 0.4);
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(31, 41, 55, 0.95);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 0.5rem;
+            min-width: 200px;
+            margin-top: 0.5rem;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(31, 41, 55, 0.37);
+            z-index: 1000;
+        }
+
+        body.light-mode .profile-dropdown {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .profile-dropdown.show {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .profile-dropdown a,
+        .profile-dropdown button {
+            display: block;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: none;
+            border: none;
+            color: var(--gray-300);
+            text-align: right;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Cairo', sans-serif;
+            font-weight: 600;
+        }
+
+        body.light-mode .profile-dropdown a,
+        body.light-mode .profile-dropdown button {
+            color: var(--gray-700);
+        }
+
+        .profile-dropdown a:hover,
+        .profile-dropdown button:hover {
+            background: rgba(168, 85, 247, 0.1);
+            color: var(--secondary);
+        }
+
+        .profile-dropdown button:last-child {
+            color: var(--danger);
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            z-index: 10;
+            text-align: center;
+            animation: slideIn 0.8s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--white), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        body.light-mode .hero h1 {
+            background: linear-gradient(135deg, var(--gray-900), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-400);
+            margin-bottom: 2rem;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body.light-mode .hero p {
+            color: var(--gray-600);
+        }
+
+        /* Membership Section */
+        .membership-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--white), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        body.light-mode .section-title {
+            background: linear-gradient(135deg, var(--gray-900), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .membership-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .membership-card {
+            background: rgba(31, 41, 55, 0.4);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(168, 85, 247, 0.2);
+            border-radius: 1rem;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px 0 rgba(31, 41, 55, 0.37);
+        }
+
+        body.light-mode .membership-card {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .membership-card.featured {
+            border-color: var(--primary);
+            transform: scale(1.05);
+            box-shadow: 0 15px 50px rgba(168, 85, 247, 0.3);
+        }
+
+        .membership-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 15px 50px rgba(168, 85, 247, 0.3);
+        }
+
+        .membership-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .membership-card h3 {
+            font-size: 1.5rem;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        body.light-mode .membership-card h3 {
+            color: var(--gray-900);
+        }
+
+        .membership-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        .membership-price span {
+            font-size: 1rem;
+            color: var(--gray-400);
+        }
+
+        .membership-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .membership-features li {
+            padding: 0.5rem 0;
+            color: var(--gray-400);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        body.light-mode .membership-features li {
+            color: var(--gray-600);
+        }
+
+        .membership-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        /* Anime Grid */
+        .anime-showcase {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+        }
+
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .anime-card {
+            position: relative;
+            border-radius: 0.75rem;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            background: rgba(31, 41, 55, 0.4);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(31, 41, 55, 0.37);
+        }
+
+        .anime-card:hover {
+            transform: scale(1.05);
+            border-color: rgba(168, 85, 247, 0.5);
+            box-shadow: 0 15px 50px rgba(168, 85, 247, 0.3);
+        }
+
+        .anime-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .anime-card:hover img {
+            filter: brightness(0.7);
+        }
+
+        .anime-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            padding: 1.5rem;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
+
+        .anime-card:hover .anime-info {
+            transform: translateY(0);
+        }
+
+        .anime-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+
+        .anime-rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--warning);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .anime-buttons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .anime-btn {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            background: rgba(168, 85, 247, 0.5);
+            color: var(--white);
+            border-radius: 0.3rem;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .anime-btn:hover {
+            background: var(--primary);
+        }
+
+        .anime-favorite {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: none;
+            color: var(--white);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .anime-favorite:hover {
+            background: var(--danger);
+            transform: scale(1.1);
+        }
+
+        .anime-favorite.active {
+            background: var(--danger);
+            color: var(--white);
+        }
+
+        /* Recommendations Section */
+        .recommendations-section {
+            max-width: 1400px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: rgba(31, 41, 55, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 41, 55, 0.37);
+        }
+
+        body.light-mode .recommendations-section {
+            background: rgba(255, 255, 255, 0.6);
+            border-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .recommendations-section h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        body.light-mode .recommendations-section h3 {
+            color: var(--gray-900);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(15, 23, 42, 0.9);
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+            backdrop-filter: blur(20px);
+        }
+
+        body.light-mode footer {
+            background: rgba(255, 255, 255, 0.9);
+            border-top-color: rgba(168, 85, 247, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        body.light-mode .footer-section h4 {
+            color: var(--gray-900);
+        }
+
+        .footer-section a {
+            display: block;
+            color: var(--gray-400);
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        body.light-mode .footer-section a {
+            color: var(--gray-600);
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+            transform: translateX(-0.5rem);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(168, 85, 247, 0.2);
+            color: var(--gray-500);
+        }
+
+        body.light-mode .footer-bottom {
+            border-top-color: rgba(168, 85, 247, 0.3);
+            color: var(--gray-600);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(31, 41, 55, 0.95);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 0.5rem;
+            padding: 1rem 1.5rem;
+            color: var(--white);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            max-width: 300px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px 0 rgba(31, 41, 55, 0.37);
+        }
+
+        .notification.success {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .notification.error {
+            border-color: rgba(239, 68, 68, 0.5);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .login-info-side {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .navbar-container {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+
+            .nav-center {
+                order: 3;
+                width: 100%;
+                flex-direction: column;
+            }
+
+            .search-bar {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .anime-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .membership-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .membership-card.featured {
+                transform: scale(1);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .anime-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-tabs {
+                flex-direction: column;
+            }
+
+            .form-tab {
+                border-bottom: 2px solid rgba(168, 85, 247, 0.2);
+                padding: 0.75rem;
+            }
+
+            .form-tab.active::after {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Container -->
+    <div class="login-container" id="loginContainer">
+        <button class="close-login" onclick="closeLogin()">&times;</button>
+        <div class="login-wrapper">
+            <div class="login-form-side">
+                <div class="form-tabs">
+                    <button class="form-tab active" onclick="switchTab('login')">تسجيل الدخول</button>
+                    <button class="form-tab" onclick="switchTab('register')">إنشاء حساب</button>
+                </div>
+
+                <!-- Login Form -->
+                <div class="form-content active" id="loginForm">
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="email">البريد الإلكتروني</label>
+                            <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">كلمة المرور</label>
+                            <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="remember">
+                            <label for="remember">تذكرني</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">دخول</button>
+                        <div class="form-footer">
+                            <a href="#" class="forgot-password">هل نسيت كلمة المرور؟</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div class="form-content" id="registerForm">
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="fullname">الاسم الكامل</label>
+                            <input type="text" id="fullname" placeholder="أدخل اسمك الكامل" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regemail">البريد الإلكتروني</label>
+                            <input type="email" id="regemail" placeholder="أدخل بريدك الإلكتروني" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regpassword">كلمة المرور</label>
+                            <input type="password" id="regpassword" placeholder="أدخل كلمة مرور قوية" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmpassword">تأكيد كلمة المرور</label>
+                            <input type="password" id="confirmpassword" placeholder="أعد إدخال كلمة المرور" required>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">أوافق على الشروط والأحكام</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">إنشاء حساب</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="login-info-side">
+                <h1>مرحباً بك</h1>
+                <p>انضم إلى ملايين محبي الأنمي حول العالم</p>
+                <div class="login-features">
+                    <div class="feature-item">
+                        <div class="feature-text">
+                            <h3>مشاهدة بدون حد</h3>
+                            <p>آلاف الأنمي بجودة عالية</p>
+                        </div>
+                        <div class="feature-icon">📺</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-text">
+                            <h3>توصيات ذكية</h3>
+                            <p>اكتشف أنمي جديد يعجبك</p>
+                        </div>
+                        <div class="feature-icon">🎯</div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-text">
+                            <h3>مجتمع نشط</h3>
+                            <p>تفاعل مع محبي الأنمي</p>
+                        </div>
+                        <div class="feature-icon">👥</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <!-- Trending Ticker -->
+        <div class="trending-ticker">
+            <div class="ticker-content">
+                <div class="ticker-item">🔥 الأنمي الأكثر مشاهدة: Attack on Titan</div>
+                <div class="ticker-item">⭐ الأعلى تقييماً: Steins Gate</div>
+                <div class="ticker-item">🆕 جديد اليوم: Jujutsu Kaisen Season 2</div>
+                <div class="ticker-item">🎊 أفضل عرض: One Piece</div>
+                <div class="ticker-item">🔥 الأنمي الأكثر مشاهدة: Attack on Titan</div>
+                <div class="ticker-item">⭐ الأعلى تقييماً: Steins Gate</div>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav>
+            <div class="navbar-container">
+                <a href="#" class="logo">🎬 AnimeBest Ultimate</a>
+                <div class="nav-center">
+                    <ul class="nav-links">
+                        <li><a href="#anime">الأنمي</a></li>
+                        <li><a href="#membership">الاشتراكات</a></li>
+                        <li><a href="#recommendations">التوصيات</a></li>
+                    </ul>
+                    <div class="search-bar">
+                        <span>🔍</span>
+                        <input type="text" id="searchInput" placeholder="ابحث عن أنمي...">
+                    </div>
+                    <div class="nav-buttons">
+                        <button class="theme-toggle" id="themeToggle">🌙 مظلم</button>
+                        <div class="user-profile">
+                            <button class="profile-btn" onclick="toggleProfileDropdown()" id="profileBtn">👤</button>
+                            <div class="profile-dropdown" id="profileDropdown">
+                                <a href="#">الملف الشخصي</a>
+                                <a href="#">إعداداتي</a>
+                                <a href="#">المفضلة</a>
+                                <a href="#">مشاهدة لاحقاً</a>
+                                <button onclick="logout()">تسجيل الخروج</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>اكتشف عالم الأنمي اللامحدود</h1>
+                <p>أفضل منصة عربية لمشاهدة الأنمي بجودة عالية وميزات متقدمة</p>
+            </div>
+        </section>
+
+        <!-- Membership Section -->
+        <section class="membership-section" id="membership">
+            <h2 class="section-title">اختر خطتك المفضلة</h2>
+            <div class="membership-grid">
+                <div class="membership-card">
+                    <div class="membership-badge">مجاني</div>
+                    <h3>الخطة الأساسية</h3>
+                    <div class="membership-price">مجاني<span>/شهر</span></div>
+                    <ul class="membership-features">
+                        <li>مشاهدة محدودة</li>
+                        <li>جودة 720p</li>
+                        <li>إعلانات</li>
+                        <li>دعم أساسي</li>
+                    </ul>
+                    <button class="btn btn-secondary" style="width: 100%;">ابدأ الآن</button>
+                </div>
+
+                <div class="membership-card featured">
+                    <div class="membership-badge">الأكثر شهرة</div>
+                    <h3>الخطة البريميوم</h3>
+                    <div class="membership-price">9.99<span>ر.س /شهر</span></div>
+                    <ul class="membership-features">
+                        <li>مشاهدة غير محدودة</li>
+                        <li>جودة 1080p</li>
+                        <li>بدون إعلانات</li>
+                        <li>توصيات ذكية</li>
+                        <li>دعم أولوي</li>
+                    </ul>
+                    <button class="btn btn-primary" style="width: 100%;">اشترك الآن</button>
+                </div>
+
+                <div class="membership-card">
+                    <div class="membership-badge">VIP</div>
+                    <h3>الخطة الفخمة</h3>
+                    <div class="membership-price">19.99<span>ر.س /شهر</span></div>
+                    <ul class="membership-features">
+                        <li>كل ميزات البريميوم</li>
+                        <li>جودة 4K</li>
+                        <li>مشاهدة متزامنة</li>
+                        <li>محتوى حصري</li>
+                        <li>دعم 24/7</li>
+                    </ul>
+                    <button class="btn btn-secondary" style="width: 100%;">اشترك الآن</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anime Showcase -->
+        <section class="anime-showcase" id="anime">
+            <h2 class="section-title">أنمي مشهورة</h2>
+            <div class="anime-grid" id="animeGrid">
+                <!-- Anime cards will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Recommendations Section -->
+        <section class="recommendations-section" id="recommendations">
+            <h3>🎯 توصيات مخصصة لك</h3>
+            <div class="anime-grid" id="recommendationsGrid">
+                <!-- Recommendations will be generated by JavaScript -->
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>عن AnimeBest Ultimate</h4>
+                    <p style="color: var(--gray-400); margin-bottom: 1rem;">منصة عربية رائدة لمشاهدة الأنمي بجودة عالية وميزات متقدمة</p>
+                </div>
+                <div class="footer-section">
+                    <h4>الروابط السريعة</h4>
+                    <a href="#">الصفحة الرئيسية</a>
+                    <a href="#">الأنمي</a>
+                    <a href="#">الفئات</a>
+                    <a href="#">البحث</a>
+                </div>
+                <div class="footer-section">
+                    <h4>الدعم</h4>
+                    <a href="#">مركز المساعدة</a>
+                    <a href="#">الأسئلة الشائعة</a>
+                    <a href="#">اتصل بنا</a>
+                    <a href="#">الشروط والأحكام</a>
+                </div>
+                <div class="footer-section">
+                    <h4>تابعنا</h4>
+                    <a href="#">Facebook</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 AnimeBest Ultimate. جميع الحقوق محفوظة. صُنع بـ ❤️ من قبل فريق AnimeBest</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // ANIME DATA
+        // ============================================
+        const animeData = [
+            { title: 'Attack on Titan', rating: 9.0, image: 'https://via.placeholder.com/200x280?text=Attack+on+Titan', genre: 'أكشن', category: 'action', episodes: 75, description: 'قصة عن الإنسانية والوحوش الضخمة' },
+            { title: 'Death Note', rating: 8.9, image: 'https://via.placeholder.com/200x280?text=Death+Note', genre: 'نفسي', category: 'drama', episodes: 37, description: 'قصة عن دفتر يمنح قوة الموت' },
+            { title: 'Demon Slayer', rating: 8.8, image: 'https://via.placeholder.com/200x280?text=Demon+Slayer', genre: 'أكشن', category: 'action', episodes: 26, description: 'رحلة لمحاربة الشياطين' },
+            { title: 'My Hero Academia', rating: 8.7, image: 'https://via.placeholder.com/200x280?text=My+Hero+Academia', genre: 'أكشن', category: 'action', episodes: 88, description: 'قصة عن الأبطال الخارقين' },
+            { title: 'Naruto', rating: 8.5, image: 'https://via.placeholder.com/200x280?text=Naruto', genre: 'أكشن', category: 'action', episodes: 220, description: 'مغامرة النينجا الشهيرة' },
+            { title: 'One Piece', rating: 8.6, image: 'https://via.placeholder.com/200x280?text=One+Piece', genre: 'مغامرة', category: 'action', episodes: 1000, description: 'البحث عن الكنز الأسطوري' },
+            { title: 'Steins Gate', rating: 9.1, image: 'https://via.placeholder.com/200x280?text=Steins+Gate', genre: 'خيال علمي', category: 'drama', episodes: 24, description: 'السفر عبر الزمن والعواقب' },
+            { title: 'Jujutsu Kaisen', rating: 8.9, image: 'https://via.placeholder.com/200x280?text=Jujutsu+Kaisen', genre: 'أكشن', category: 'action', episodes: 47, description: 'قصة عن الساحرين والشياطين' },
+            { title: 'Fullmetal Alchemist', rating: 9.0, image: 'https://via.placeholder.com/200x280?text=Fullmetal+Alchemist', genre: 'درامي', category: 'drama', episodes: 64, description: 'رحلة البحث عن الحجر الفيلسوفي' },
+            { title: 'Code Geass', rating: 8.7, image: 'https://via.placeholder.com/200x280?text=Code+Geass', genre: 'أكشن', category: 'action', episodes: 50, description: 'قوة تغيير العالم' }
+        ];
+
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        let currentUser = localStorage.getItem('currentUser') || null;
+
+        // ============================================
+        // THEME MANAGER
+        // ============================================
+        const ThemeManager = {
+            theme: localStorage.getItem('theme') || 'dark',
+            init: function() {
+                this.applyTheme(this.theme);
+                document.getElementById('themeToggle').addEventListener('click', () => this.toggle());
+            },
+            toggle: function() {
+                this.theme = this.theme === 'dark' ? 'light' : 'dark';
+                this.applyTheme(this.theme);
+                localStorage.setItem('theme', this.theme);
+            },
+            applyTheme: function(theme) {
+                if (theme === 'light') {
+                    document.body.classList.add('light-mode');
+                    document.getElementById('themeToggle').textContent = '☀️ فاتح';
+                } else {
+                    document.body.classList.remove('light-mode');
+                    document.getElementById('themeToggle').textContent = '🌙 مظلم';
+                }
+            }
+        };
+
+        // ============================================
+        // LOGIN & REGISTER
+        // ============================================
+        function showLogin() {
+            document.getElementById('loginContainer').classList.add('show');
+            document.getElementById('mainContent').classList.add('hidden');
+        }
+
+        function closeLogin() {
+            document.getElementById('loginContainer').classList.remove('show');
+            document.getElementById('mainContent').classList.remove('hidden');
+        }
+
+        function switchTab(tab) {
+            document.querySelectorAll('.form-tab').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.form-content').forEach(form => form.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tab + 'Form').classList.add('active');
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (email && password) {
+                isLoggedIn = true;
+                currentUser = email.split('@')[0];
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('currentUser', currentUser);
+                document.getElementById('profileBtn').textContent = currentUser.charAt(0).toUpperCase();
+                showNotification('تم تسجيل الدخول بنجاح!', 'success');
+                closeLogin();
+            }
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const fullname = document.getElementById('fullname').value;
+            const email = document.getElementById('regemail').value;
+            const password = document.getElementById('regpassword').value;
+            const confirmPassword = document.getElementById('confirmpassword').value;
+
+            if (password !== confirmPassword) {
+                showNotification('كلمات المرور غير متطابقة!', 'error');
+                return;
+            }
+
+            isLoggedIn = true;
+            currentUser = fullname;
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('currentUser', currentUser);
+            document.getElementById('profileBtn').textContent = currentUser.charAt(0).toUpperCase();
+            showNotification('تم إنشاء الحساب بنجاح!', 'success');
+            closeLogin();
+        }
+
+        function logout() {
+            isLoggedIn = false;
+            currentUser = null;
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('currentUser');
+            document.getElementById('profileBtn').textContent = '👤';
+            toggleProfileDropdown();
+            showNotification('تم تسجيل الخروج بنجاح!', 'info');
+            showLogin();
+        }
+
+        function toggleProfileDropdown() {
+            if (!isLoggedIn) {
+                showLogin();
+                return;
+            }
+            document.getElementById('profileDropdown').classList.toggle('show');
+        }
+
+        // ============================================
+        // RENDER ANIME CARDS
+        // ============================================
+        function renderAnimeCards() {
+            const animeGrid = document.getElementById('animeGrid');
+            animeGrid.innerHTML = '';
+
+            animeData.forEach(anime => {
+                const card = document.createElement('div');
+                card.className = 'anime-card';
+                
+                card.innerHTML = `
+                    <img src="${anime.image}" alt="${anime.title}">
+                    <button class="anime-favorite" onclick="toggleFavorite('${anime.title}', event)" title="إضافة إلى المفضلة">❤️</button>
+                    <div class="anime-info">
+                        <div class="anime-title">${anime.title}</div>
+                        <div class="anime-rating">⭐ ${anime.rating}/10</div>
+                        <div class="anime-buttons">
+                            <button class="anime-btn" onclick="showNotification('سيتم فتح المشغل قريباً', 'info')">مشاهدة</button>
+                            <button class="anime-btn" onclick="showNotification('تم الإضافة لقائمتك', 'success')">لاحقاً</button>
+                        </div>
+                    </div>
+                `;
+                animeGrid.appendChild(card);
+            });
+        }
+
+        // ============================================
+        // SMART RECOMMENDATIONS
+        // ============================================
+        function generateRecommendations() {
+            const recommendationsGrid = document.getElementById('recommendationsGrid');
+            const shuffled = [...animeData].sort(() => Math.random() - 0.5).slice(0, 4);
+            recommendationsGrid.innerHTML = '';
+
+            shuffled.forEach(anime => {
+                const card = document.createElement('div');
+                card.className = 'anime-card';
+                
+                card.innerHTML = `
+                    <img src="${anime.image}" alt="${anime.title}">
+                    <button class="anime-favorite" onclick="toggleFavorite('${anime.title}', event)" title="إضافة إلى المفضلة">❤️</button>
+                    <div class="anime-info">
+                        <div class="anime-title">${anime.title}</div>
+                        <div class="anime-rating">⭐ ${anime.rating}/10</div>
+                        <div class="anime-buttons">
+                            <button class="anime-btn" onclick="showNotification('سيتم فتح المشغل قريباً', 'info')">مشاهدة</button>
+                            <button class="anime-btn" onclick="showNotification('تم الإضافة لقائمتك', 'success')">لاحقاً</button>
+                        </div>
+                    </div>
+                `;
+                recommendationsGrid.appendChild(card);
+            });
+        }
+
+        // ============================================
+        // UTILITIES
+        // ============================================
+        function toggleFavorite(title, event) {
+            event.stopPropagation();
+            const btn = event.target.closest('.anime-favorite');
+            btn.classList.toggle('active');
+            showNotification(`تم ${btn.classList.contains('active') ? 'إضافة' : 'حذف'} "${title}" ${btn.classList.contains('active') ? 'من' : ''} المفضلة`, 'success');
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const cards = document.querySelectorAll('.anime-card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.anime-title')?.textContent.toLowerCase();
+                if (title && title.includes(searchTerm)) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
+        document.addEventListener('DOMContentLoaded', function() {
+            ThemeManager.init();
+            renderAnimeCards();
+            generateRecommendations();
+
+            if (isLoggedIn && currentUser) {
+                document.getElementById('profileBtn').textContent = currentUser.charAt(0).toUpperCase();
+            } else {
+                showLogin();
+            }
+        });
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('profileDropdown');
+            const profileBtn = document.getElementById('profileBtn');
+            if (!e.target.closest('.user-profile')) {
+                dropdown.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
