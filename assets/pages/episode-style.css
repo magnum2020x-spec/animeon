@@ -1,0 +1,311 @@
+/* تنسيقات خاصة بصفحة الحلقة */
+body {
+    background-color: #0f0f0f; /* أسود عميق للفخامة */
+    color: #e0e0e0; /* رمادي فاتح مريح للعين */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #1a1a1a; /* خلفية افتح شوية للمحتوى */
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+}
+
+/* تنسيق الهيدر (العنوان والصورة) */
+.anime-header {
+    display: flex;
+    flex-wrap: wrap; /* عشان يضبط على الموبايل */
+    gap: 30px;
+    align-items: center;
+    border-bottom: 2px solid #333;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+.anime-info h1 {
+    color: #ffcc00; /* لون ذهبي لعنوان الأنمي */
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.anime-poster img {
+    border: 3px solid #ffcc00;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.anime-poster img:hover {
+    transform: scale(1.05); /* حركة تكبير بسيطة لما تلمس الصورة */
+}
+
+/* تنسيق السيرفرات */
+.server-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.server-buttons button {
+    background: #444;
+    color: white;
+    border: 1px solid #555;
+    padding: 12px 25px;
+    border-radius: 30px; /* أزرار دائرية احترافية */
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.server-buttons button:hover {
+    background: #ffcc00;
+    color: #000;
+    border-color: #ffcc00;
+}
+.server-button {
+    background: transparent;
+    color: #00ffcc; /* لون النيون (أخضر فوسفوري أو أزرق) */
+    border: 2px solid #00ffcc;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.4s;
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+    margin: 5px;
+}
+
+.server-button:hover {
+    background: #00ffcc;
+    color: #1a1a1a;
+    box-shadow: 0 0 20px #00ffcc, 0 0 40px #00ffcc; /* توهج قوي عند المرور بالماوس */
+    transform: translateY(-3px); /* حركة رفع بسيطة */
+}
+
+/* مشغل الفيديو */
+.player-box {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* يحافظ على أبعاد الفيديو */
+    background: #000;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #333;
+}
+.player-box iframe {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+}
+.comments-section {
+    margin-top: 40px;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #333;
+}
+
+.comment-input textarea {
+    width: 100%;
+    height: 80px;
+    background: #111;
+    color: white;
+    border: 1px solid #00ffcc; /* نيون خفيف */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    resize: none;
+}
+
+.user-comment {
+    background: #2a2a2a;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    border-right: 4px solid #00ffcc; /* خط نيون جانبي */
+}
+
+.user-comment strong {
+    color: #ffcc00;
+    display: block;
+    margin-bottom: 5px;
+}
+/* ترتيب العناصر جنب بعض */
+.main-content-wrapper {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap; /* عشان الموبايل */
+}
+
+.video-area {
+    flex: 3; /* ياخد مساحة أكبر */
+    min-width: 300px;
+}
+
+.episode-sidebar {
+    flex: 1; /* ياخد مساحة أصغر */
+    background: #1a1a1a;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #333;
+    max-height: 500px;
+    overflow-y: auto; /* عشان لو الحلقات كتير يظهر سكرول */
+}
+
+.episode-sidebar h3 {
+    color: #ffcc00;
+    text-align: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+/* تنسيق روابط الحلقات */
+.ep-item {
+    display: block;
+    background: #222;
+    color: white;
+    padding: 12px;
+    margin-bottom: 8px;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.ep-item:hover {
+    border-color: #00ffcc;
+    color: #00ffcc;
+    background: #2a2a2a;
+}
+
+.ep-item.active {
+    background: #00ffcc;
+    color: #000;
+    font-weight: bold;
+}
+.recommended-section {
+    margin-top: 40px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+}
+
+.section-title {
+    color: #ffcc00; /* لون ذهبي أو نيون زي موقعك */
+    margin-bottom: 20px;
+    border-right: 4px solid #00ffcc;
+    padding-right: 15px;
+}
+
+.anime-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.anime-card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+    text-align: center;
+    border: 1px solid #333;
+    align-items: center;
+}
+
+.anime-card:hover {
+    transform: translateY(-10px);
+    border-color: #00ffcc;
+}
+
+.card-img {
+    position: relative;
+    height: 250px;
+}
+
+.card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-img .type {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: #00ffcc;
+    color: #000;
+    padding: 2px 8px;
+    font-size: 12px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.anime-card h4 {
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+}
+
+.view-btn {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 15px;
+    background: transparent;
+    border: 1px solid #00ffcc;
+    color: #00ffcc;
+    text-decoration: none;
+    border-radius: 20px;
+    transition: 0.3s;
+    width: fit-content !important;
+}
+
+.view-btn:hover {
+    background: #00ffcc;
+    color: #000;
+}
+/* تأثير الحركة اللامعة */
+@keyframes pulse {
+    0% { background-color: #2a2a2a; }
+    50% { background-color: #3f3f3f; }
+    100% { background-color: #2a2a2a; }
+}
+
+.skeleton-card {
+    background: #1a1a1a;
+    border-radius: 10px;
+    padding: 10px;
+    border: 1px solid #333;
+}
+
+.skeleton-img {
+    width: 100%;
+    height: 250px;
+    border-radius: 8px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-text {
+    width: 70%;
+    height: 20px;
+    margin: 15px auto;
+    border-radius: 4px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-btn {
+    width: 100px;
+    height: 30px;
+    margin: 0 auto 10px;
+    border-radius: 20px;
+    animation: pulse 1.5s infinite ease-in-out;
+}
