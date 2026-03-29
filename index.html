@@ -1,639 +1,648 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Anime On - منصة مشاهدة الأنمي العربية</title>
-    
+
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- CSS Files -->
-    <link rel="stylesheet" href="css/style.css">
-    
+    <link rel="stylesheet" href="css/style.css" />
+
     <style>
-        /* ============================================
+      /* ============================================
            Additional Styles for Index Page
            ============================================ */
 
-        /* Navbar */
-        nav {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(168, 85, 247, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            padding: 1rem 2rem;
-        }
+      /* Navbar */
+      nav {
+        background: rgba(15, 23, 42, 0.8);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 1rem 2rem;
+      }
 
-        .navbar-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .navbar-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #a855f7, #06b6d4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 900;
+        background: linear-gradient(135deg, #a855f7, #06b6d4);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-            align-items: center;
-        }
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+        align-items: center;
+      }
 
-        .nav-links a {
-            color: var(--gray-300);
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            position: relative;
-        }
+      .nav-links a {
+        color: var(--gray-300);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        position: relative;
+      }
 
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
+      .nav-links a:hover {
+        color: var(--secondary);
+      }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s ease;
-        }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -5px;
+        right: 0;
+        width: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--primary), var(--secondary));
+        transition: width 0.3s ease;
+      }
 
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
 
-        .nav-links a.active {
-            color: var(--secondary);
-        }
+      .nav-links a.active {
+        color: var(--secondary);
+      }
 
-        .nav-links a.active::after {
-            width: 100%;
-        }
+      .nav-links a.active::after {
+        width: 100%;
+      }
 
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 6s ease-in-out infinite;
-        }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+          circle,
+          rgba(168, 85, 247, 0.1) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+      }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.1) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float 8s ease-in-out infinite reverse;
-        }
+      .hero::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+          circle,
+          rgba(6, 182, 212, 0.1) 0%,
+          transparent 70%
+        );
+        border-radius: 50%;
+        animation: float 8s ease-in-out infinite reverse;
+      }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(20px); }
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0px);
         }
-
-        .hero-content {
-            max-width: 1000px;
-            z-index: 10;
-            text-align: center;
+        50% {
+          transform: translateY(20px);
         }
+      }
 
+      .hero-content {
+        max-width: 1000px;
+        z-index: 10;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 4rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, var(--white), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+      }
+
+      .hero p {
+        font-size: 1.3rem;
+        color: var(--gray-400);
+        margin-bottom: 2rem;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* Features Section */
+      .features {
+        max-width: 1400px;
+        margin: 4rem auto;
+        padding: 2rem;
+      }
+
+      .section-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        text-align: center;
+        margin-bottom: 3rem;
+        background: linear-gradient(135deg, var(--white), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .feature-card {
+        background: rgba(31, 41, 55, 0.5);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        padding: 2rem;
+        border-radius: 1rem;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .feature-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          135deg,
+          rgba(168, 85, 247, 0.1),
+          rgba(6, 182, 212, 0.1)
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: -1;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(168, 85, 247, 0.5);
+      }
+
+      .feature-card:hover::before {
+        opacity: 1;
+      }
+
+      .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+
+      .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+        color: var(--white);
+      }
+
+      .feature-card p {
+        color: var(--gray-400);
+        font-size: 0.95rem;
+      }
+
+      /* Anime Showcase */
+      .anime-showcase {
+        max-width: 1400px;
+        margin: 4rem auto;
+        padding: 2rem;
+      }
+
+      .anime-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .anime-card {
+        position: relative;
+        border-radius: 0.75rem;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: block;
+        text-decoration: none;
+      }
+
+      .anime-card:hover {
+        transform: scale(1.05);
+      }
+
+      .anime-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        transition: all 0.3s ease;
+      }
+
+      .anime-card:hover img {
+        filter: brightness(0.7);
+      }
+
+      .anime-info {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+        padding: 1.5rem;
+        transform: translateY(100%);
+        transition: all 0.3s ease;
+      }
+
+      .anime-card:hover .anime-info {
+        transform: translateY(0);
+      }
+
+      .anime-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+
+      .anime-rating {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--secondary);
+        font-size: 0.9rem;
+      }
+
+      /* Stats Section */
+      .stats {
+        max-width: 1400px;
+        margin: 4rem auto;
+        padding: 2rem;
+        background: rgba(31, 41, 55, 0.3);
+        border-radius: 1rem;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .stat-item h4 {
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-item p {
+        color: var(--gray-400);
+        font-size: 1rem;
+      }
+
+      /* CTA Section */
+      .cta {
+        max-width: 1000px;
+        margin: 4rem auto;
+        padding: 3rem;
+        background: linear-gradient(
+          135deg,
+          rgba(168, 85, 247, 0.1),
+          rgba(6, 182, 212, 0.1)
+        );
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        border-radius: 1rem;
+        text-align: center;
+      }
+
+      .cta h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        color: var(--white);
+      }
+
+      .cta p {
+        font-size: 1.1rem;
+        color: var(--gray-400);
+        margin-bottom: 2rem;
+      }
+
+      /* Footer */
+      footer {
+        background: rgba(15, 23, 42, 0.9);
+        border-top: 1px solid rgba(168, 85, 247, 0.2);
+        padding: 3rem 2rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-section h4 {
+        color: var(--white);
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .footer-section a {
+        display: block;
+        color: var(--gray-400);
+        text-decoration: none;
+        margin-bottom: 0.5rem;
+        transition: all 0.3s ease;
+      }
+
+      .footer-section a:hover {
+        color: var(--secondary);
+        padding-right: 0.5rem;
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(168, 85, 247, 0.2);
+        color: var(--gray-400);
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
         .hero h1 {
-            font-size: 4rem;
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, var(--white), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            line-height: 1.2;
+          font-size: 2.5rem;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            color: var(--gray-400);
-            margin-bottom: 2rem;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        /* Features Section */
-        .features {
-            max-width: 1400px;
-            margin: 4rem auto;
-            padding: 2rem;
+          font-size: 1rem;
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 900;
-            text-align: center;
-            margin-bottom: 3rem;
-            background: linear-gradient(135deg, var(--white), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+          font-size: 1.8rem;
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+        .nav-links {
+          gap: 1rem;
+          font-size: 0.9rem;
         }
 
-        .feature-card {
-            background: rgba(31, 41, 55, 0.5);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(168, 85, 247, 0.2);
-            padding: 2rem;
-            border-radius: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .navbar-container {
+          padding: 0 1rem;
         }
 
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(6, 182, 212, 0.1));
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
+        .hero-buttons {
+          flex-direction: column;
         }
 
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(168, 85, 247, 0.5);
+        .btn {
+          width: 100%;
         }
-
-        .feature-card:hover::before {
-            opacity: 1;
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            display: inline-block;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--white);
-        }
-
-        .feature-card p {
-            color: var(--gray-400);
-            font-size: 0.95rem;
-        }
-
-        /* Anime Showcase */
-        .anime-showcase {
-            max-width: 1400px;
-            margin: 4rem auto;
-            padding: 2rem;
-        }
-
-        .anime-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .anime-card {
-            position: relative;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .anime-card:hover {
-            transform: scale(1.05);
-        }
-
-        .anime-card img {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-            transition: all 0.3s ease;
-        }
-
-        .anime-card:hover img {
-            filter: brightness(0.7);
-        }
-
-        .anime-info {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-            padding: 1.5rem;
-            transform: translateY(100%);
-            transition: all 0.3s ease;
-        }
-
-        .anime-card:hover .anime-info {
-            transform: translateY(0);
-        }
-
-        .anime-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .anime-rating {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--secondary);
-            font-size: 0.9rem;
-        }
-
-        /* Stats Section */
-        .stats {
-            max-width: 1400px;
-            margin: 4rem auto;
-            padding: 2rem;
-            background: rgba(31, 41, 55, 0.3);
-            border-radius: 1rem;
-            border: 1px solid rgba(168, 85, 247, 0.2);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-item h4 {
-            font-size: 2.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-item p {
-            color: var(--gray-400);
-            font-size: 1rem;
-        }
-
-        /* CTA Section */
-        .cta {
-            max-width: 1000px;
-            margin: 4rem auto;
-            padding: 3rem;
-            background: linear-gradient(135deg, rgba(168, 85, 247, 0.1), rgba(6, 182, 212, 0.1));
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-radius: 1rem;
-            text-align: center;
-        }
-
-        .cta h2 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--white);
-        }
-
-        .cta p {
-            font-size: 1.1rem;
-            color: var(--gray-400);
-            margin-bottom: 2rem;
-        }
-
-        /* Footer */
-        footer {
-            background: rgba(15, 23, 42, 0.9);
-            border-top: 1px solid rgba(168, 85, 247, 0.2);
-            padding: 3rem 2rem;
-            margin-top: 4rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            color: var(--white);
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-
-        .footer-section a {
-            display: block;
-            color: var(--gray-400);
-            text-decoration: none;
-            margin-bottom: 0.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: var(--secondary);
-            padding-right: 0.5rem;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(168, 85, 247, 0.2);
-            color: var(--gray-400);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .navbar-container {
-                padding: 0 1rem;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .btn {
-                width: 100%;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation -->
     <nav>
-        <div class="navbar-container">
-            <a href="#" class="logo">
-                🎬 Anime On
-            </a>
-            <ul class="nav-links">
-                <li><a href="#features">الميزات</a></li>
-                <li><a href="#anime">الأنمي</a></li>
-                <li><a href="#stats">الإحصائيات</a></li>
-                <li><a href="#contact">اتصل بنا</a></li>
-                <li><button class="btn btn-login">دخول</button></li>
-            </ul>
-        </div>
+      <div class="navbar-container">
+        <a href="#" class="logo"> 🎬 Anime On </a>
+        <ul class="nav-links">
+          <li><a href="#features">الميزات</a></li>
+          <li><a href="#anime">الأنمي</a></li>
+          <li><a href="#stats">الإحصائيات</a></li>
+          <li><a href="#contact">اتصل بنا</a></li>
+          <li id="auth-nav-item">
+            <a href="pages/Login.html" class="btn btn-login">دخول</a>
+          </li>
+        </ul>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>مرحباً بك في Anime On</h1>
-            <p>منصة مشاهدة الأنمي الأولى في العالم العربي بتقنيات عصرية وتجربة مستخدم فريدة</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary">ابدأ المشاهدة الآن</button>
-                <button class="btn btn-secondary">اعرف المزيد</button>
-            </div>
+      <div class="hero-content">
+        <h1>مرحباً بك في Anime On</h1>
+        <p>
+          منصة مشاهدة الأنمي الأولى في العالم العربي بتقنيات عصرية وتجربة مستخدم
+          فريدة
+        </p>
+        <div class="hero-buttons">
+          <button class="btn btn-primary" onclick="window.location.href='#anime'">ابدأ المشاهدة الآن</button>
+          <button class="btn btn-secondary" onclick="window.location.href='#features'">اعرف المزيد</button>
         </div>
+      </div>
     </section>
 
     <!-- Features Section -->
     <section class="features" id="features">
-        <h2 class="section-title">لماذا Anime On؟</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">📺</div>
-                <h3>جودة عالية</h3>
-                <p>مشاهدة الأنمي بجودات متعددة تصل إلى 4K مع أفضل معدل نقل البيانات</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎯</div>
-                <h3>توصيات ذكية</h3>
-                <p>نظام توصيات مخصص يقترح عليك أنمي بناءً على تفضيلاتك</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌍</div>
-                <h3>محتوى عالمي</h3>
-                <p>آلاف الأنمي من جميع أنحاء العالم مع ترجمات عربية احترافية</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📱</div>
-                <h3>متوافق مع جميع الأجهزة</h3>
-                <p>استمتع بالمشاهدة على الهاتف والكمبيوتر والتلفاز بسلاسة</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>سرعة البث</h3>
-                <p>تقنيات تدفق متقدمة تضمن عدم توقف المشاهدة</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">👥</div>
-                <h3>مجتمع نشط</h3>
-                <p>تفاعل مع ملايين محبي الأنمي حول العالم</p>
-            </div>
+      <h2 class="section-title">لماذا Anime On؟</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📺</div>
+          <h3>جودة عالية</h3>
+          <p>
+            مشاهدة الأنمي بجودات متعددة تصل إلى 4K مع أفضل معدل نقل البيانات
+          </p>
         </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3>محتوى ضخم</h3>
+          <p>أكثر من 5000 أنمي مترجم ومدبلج بجميع التصنيفات التي تحبها</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>سرعة خيالية</h3>
+          <p>خوادم سريعة جداً تضمن لك تجربة مشاهدة خالية من التقطيع</p>
+        </div>
+      </div>
     </section>
 
     <!-- Anime Showcase -->
     <section class="anime-showcase" id="anime">
-        <h2 class="section-title">أنميات مشهورة</h2>
-        <div class="anime-grid">
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=Attack+on+Titan" alt="Attack on Titan">
-                <div class="anime-info">
-                    <div class="anime-title">Attack on Titan</div>
-                    <div class="anime-rating">⭐ 9.0/10</div>
-                </div>
-            </div>
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=Death+Note" alt="Death Note">
-                <div class="anime-info">
-                    <div class="anime-title">Death Note</div>
-                    <div class="anime-rating">⭐ 8.9/10</div>
-                </div>
-            </div>
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=Demon+Slayer" alt="Demon Slayer">
-                <div class="anime-info">
-                    <div class="anime-title">Demon Slayer</div>
-                    <div class="anime-rating">⭐ 8.8/10</div>
-                </div>
-            </div>
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=My+Hero+Academia" alt="My Hero Academia">
-                <div class="anime-info">
-                    <div class="anime-title">My Hero Academia</div>
-                    <div class="anime-rating">⭐ 8.7/10</div>
-                </div>
-            </div>
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=Naruto" alt="Naruto">
-                <div class="anime-info">
-                    <div class="anime-title">Naruto</div>
-                    <div class="anime-rating">⭐ 8.5/10</div>
-                </div>
-            </div>
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=One+Piece" alt="One Piece">
-                <div class="anime-info">
-                    <div class="anime-title">One Piece</div>
-                    <div class="anime-rating">⭐ 8.6/10</div>
-                </div>
-            </div>
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=Steins+Gate" alt="Steins Gate">
-                <div class="anime-info">
-                    <div class="anime-title">Steins Gate</div>
-                    <div class="anime-rating">⭐ 9.1/10</div>
-                </div>
-            </div>
-            <div class="anime-card">
-                <img src="https://via.placeholder.com/200x280?text=Jujutsu+Kaisen" alt="Jujutsu Kaisen">
-                <div class="anime-info">
-                    <div class="anime-title">Jujutsu Kaisen</div>
-                    <div class="anime-rating">⭐ 8.9/10</div>
-                </div>
-                </div>
-                <div class="anime-card">
-                    <a href="pages/episode.html"
-                    style="text-decoration: none;color: inherit;">
-                    <img src="https://via.placeholder.com/200x280?text=Dr.+Stone" alt="dr stone">
-                <div class="anime-info">
-                    <div class="anime-title">dr stone</div>
-                    <div class="anime-rating">⭐ 9.0/10</div>
-                    </div>
-                </a>
-            </div>
-        </div>
+      <h2 class="section-title">أحدث الحلقات</h2>
+      <div class="anime-grid">
+        <!-- Sample Anime Cards linked to episode.html -->
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?q=80&w=1000&auto=format&fit=crop" alt="Anime">
+          <div class="anime-info">
+            <div class="anime-title">هجوم العمالقة</div>
+            <div class="anime-rating">⭐ 9.8</div>
+          </div>
+        </a>
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1000&auto=format&fit=crop" alt="Anime">
+          <div class="anime-info">
+            <div class="anime-title">ون بيس</div>
+            <div class="anime-rating">⭐ 9.5</div>
+          </div>
+        </a>
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1000&auto=format&fit=crop" alt="Anime">
+          <div class="anime-info">
+            <div class="anime-title">قاتل الشياطين</div>
+            <div class="anime-rating">⭐ 9.7</div>
+          </div>
+        </a>
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1560972550-aba3456b5564?q=80&w=1000&auto=format&fit=crop" alt="Anime">
+          <div class="anime-info">
+            <div class="anime-title">ناروتو شيبودن</div>
+            <div class="anime-rating">⭐ 9.4</div>
+          </div>
+        </a>
+      </div>
     </section>
 
     <!-- Stats Section -->
     <section class="stats" id="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h4>50,000+</h4>
-                <p>حلقة أنمي</p>
-            </div>
-            <div class="stat-item">
-                <h4>5,000+</h4>
-                <p>سلسلة أنمي</p>
-            </div>
-            <div class="stat-item">
-                <h4>10M+</h4>
-                <p>مستخدم نشط</p>
-            </div>
-            <div class="stat-item">
-                <h4>24/7</h4>
-                <p>دعم العملاء</p>
-            </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <h4>+1M</h4>
+          <p>مستخدم نشط</p>
         </div>
+        <div class="stat-item">
+          <h4>+5K</h4>
+          <p>أنمي متاح</p>
+        </div>
+        <div class="stat-item">
+          <h4>+50K</h4>
+          <p>حلقة مترجمة</p>
+        </div>
+        <div class="stat-item">
+          <h4>24/7</h4>
+          <p>دعم فني</p>
+        </div>
+      </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta" id="contact">
-        <h2>هل أنت مستعد للانضمام؟</h2>
-        <p>ابدأ رحلتك مع أفضل منصة لمشاهدة الأنمي اليوم</p>
-        <button class="btn btn-primary">اشترك الآن مجاناً</button>
+    <section class="cta">
+      <h2>جاهز لبدء مغامرتك؟</h2>
+      <p>انضم لآلاف المشاهدين الآن واستمتع بأفضل تجربة مشاهدة أنمي</p>
+      <button class="btn btn-primary" onclick="window.location.href='pages/signup.html'">إنشاء حساب مجاني</button>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>عن Anime On</h4>
-                <p style="color: var(--gray-400); margin-bottom: 1rem;">منصة عربية رائدة لمشاهدة الأنمي بجودة عالية وترجمات احترافية</p>
-            </div>
-            <div class="footer-section">
-                <h4>الروابط السريعة</h4>
-                <a href="#">الصفحة الرئيسية</a>
-                <a href="#">الأنمي</a>
-                <a href="#">الفئات</a>
-                <a href="#">البحث</a>
-            </div>
-            <div class="footer-section">
-                <h4>الدعم</h4>
-                <a href="#">مركز المساعدة</a>
-                <a href="#">الأسئلة الشائعة</a>
-                <a href="#">اتصل بنا</a>
-                <a href="#">الشروط والأحكام</a>
-            </div>
-            <div class="footer-section">
-                <h4>تابعنا</h4>
-                <a href="#">Facebook</a>
-                <a href="#">Twitter</a>
-                <a href="#">Instagram</a>
-                <a href="#">YouTube</a>
-            </div>
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Anime On</h4>
+          <p>أفضل منصة لمشاهدة الأنمي في العالم العربي</p>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Anime On. جميع الحقوق محفوظة. صُنع بـ ❤️ من قبل فريق Anime On</p>
+        <div class="footer-section">
+          <h4>روابط سريعة</h4>
+          <a href="#">الرئيسية</a>
+          <a href="#">قائمة الأنمي</a>
+          <a href="#">أحدث الحلقات</a>
         </div>
+        <div class="footer-section">
+          <h4>الدعم</h4>
+          <a href="#">مركز المساعدة</a>
+          <a href="#">شروط الاستخدام</a>
+          <a href="#">سياسة الخصوصية</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>جميع الحقوق محفوظة &copy; 2024 Anime On</p>
+      </div>
     </footer>
 
-    <!-- JavaScript Files -->
-    <script src="js/main.js"></script>
-</body>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+      async function updateAuthUI() {
+        const authNavItem = document.getElementById('auth-nav-item');
+        const { data: { session } } = await _supabase.auth.getSession();
+
+        if (session) {
+          const user = session.user;
+          const userName = user.user_metadata.full_name || user.email;
+          authNavItem.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: white; font-weight: 600;">مرحباً، ${userName}</span>
+              <button onclick="handleLogout()" class="btn btn-login" style="background: #ef4444; border: none;">خروج</button>
+            </div>
+          `;
+        } else {
+          authNavItem.innerHTML = `
+            <a href="pages/Login.html" class="btn btn-login">دخول</a>
+          `;
+        }
+      }
+
+      async function handleLogout() {
+        const { error } = await _supabase.auth.signOut();
+        if (error) {
+          alert("خطأ أثناء تسجيل الخروج: " + error.message);
+        } else {
+          window.location.reload();
+        }
+      }
+
+      // Initial UI update
+      updateAuthUI();
+
+      // Listen for auth state changes
+      _supabase.auth.onAuthStateChange((event, session) => {
+        updateAuthUI();
+      });
+    </script>
+  </body>
 </html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تسجيل الدخول | Anime On</title>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="Login.css" />
+  </head>
+  <body class="login-page">
+    <div class="login-container">
+      <div class="login-box">
+        <div class="logo">
+          <h2>أهلاً بك في <span>Anime On</span></h2>
+        </div>
+
+        <form id="loginForm">
+          <div class="input-group">
+            <i class="fas fa-envelope"></i>
+            <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+          </div>
+
+          <div class="input-group">
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              id="password"
+              placeholder="كلمة المرور"
+              required
+            />
+            <i class="fas fa-eye toggle-password" onclick="togglePass()" style="cursor: pointer;"></i>
+          </div>
+
+          <div class="options">
+            <label><input type="checkbox" /> تذكرني</label>
+            <a href="#">نسيت كلمة المرور؟</a>
+          </div>
+
+          <button type="submit" class="login-btn" id="loginBtn">تسجيل الدخول</button>
+        </form>
+
+        <p class="register-link">
+          ليس لديك حساب؟ <a href="signup.html">إنشاء حساب جديد</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script>
+      function togglePass() {
+        const passInput = document.getElementById("password");
+        const icon = document.querySelector(".toggle-password");
+        if (passInput.type === "password") {
+          passInput.type = "text";
+          icon.classList.replace("fa-eye", "fa-eye-slash");
+        } else {
+          passInput.type = "password";
+          icon.classList.replace("fa-eye-slash", "fa-eye");
+        }
+      }
+
+      const loginForm = document.getElementById("loginForm");
+      const loginBtn = document.getElementById("loginBtn");
+
+      loginForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        
+        loginBtn.disabled = true;
+        loginBtn.innerText = "جاري تسجيل الدخول...";
+
+        try {
+          const { data, error } = await _supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+          });
+
+          if (error) {
+            alert("خطأ في تسجيل الدخول: " + error.message);
+          } else {
+            alert("تم تسجيل الدخول بنجاح!");
+            window.location.href = "../index.html";
+          }
+        } catch (err) {
+          console.error(err);
+          alert("حدث خطأ غير متوقع.");
+        } finally {
+          loginBtn.disabled = false;
+          loginBtn.innerText = "تسجيل الدخول";
+        }
+      });
+    </script>
+  </body>
+</html>
