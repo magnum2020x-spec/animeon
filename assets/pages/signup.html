@@ -4,10 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>إنشاء حساب جديد | Anime On</title>
+    <!-- Google Fonts -->
     <link
       href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
       body {
         margin: 0;
@@ -102,62 +105,99 @@
     <div class="signup-card">
       <h2>إنشاء حساب Anime On</h2>
 
-      <form>
+      <form id="signupForm">
         <div class="input-group">
           <label>الاسم الكامل</label>
-          <input type="text" placeholder="أدخل اسمك بالكامل" />
+          <input type="text" id="userName" placeholder="أدخل اسمك بالكامل" required />
         </div>
 
         <div class="input-group">
           <label>البريد الإلكتروني</label>
-          <input type="email" placeholder="example@mail.com" />
+          <input type="email" id="userEmail" placeholder="example@mail.com" required />
         </div>
 
         <div class="input-group">
           <label>كلمة المرور</label>
-          <input type="password" placeholder="********" />
+          <input type="password" id="userPassword" placeholder="********" required />
         </div>
 
         <div class="input-group">
           <label>تأكيد كلمة المرور</label>
-          <input type="password" placeholder="********" />
+          <input type="password" id="confirmPassword" placeholder="********" required />
         </div>
 
-        <button type="submit" class="signup-btn">اشترك الآن</button>
+        <button type="submit" class="signup-btn" id="signupBtn">اشترك الآن</button>
       </form>
 
       <div class="footer-links">
-        لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>
+        لديك حساب بالفعل؟ <a href="Login.html">تسجيل الدخول</a>
       </div>
     </div>
-    <script
-      type="text/javascript"
-      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
-    ></script>
 
-    <script src="../assets/js/auth.js"></script>
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="../js/supabase-config.js"></script>
     <script>
-      // 1. تهيئة الاتصال بالسيرفر
-      const supabaseUrl = "";
-      const supabaseKey = "";
-      const supabase = supabasejs.createClient(supabaseUrl, supabaseKey);
+      // Initialize EmailJS with your Public Key
+      (function() {
+          emailjs.init("Eo4wdYx57rOHdysj5");
+      })();
 
-      // 2. دالة التسجيل
-      async function signUpUser(email, password) {
-        const { data, error } = await supabase.auth.signUp({
-          email: email,
-          password: password,
-        });
+      const signupForm = document.getElementById("signupForm");
+      const signupBtn = document.getElementById("signupBtn");
 
-        if (error) {
-          alert("خطأ في التسجيل: " + error.message);
-        } else {
-          alert("تم إرسال رسالة تأكيد لبريدك الإلكتروني!");
+      signupForm.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById("userName").value;
+        const email = document.getElementById("userEmail").value;
+        const password = document.getElementById("userPassword").value;
+        const confirmPass = document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPass) {
+          alert("كلمتا المرور غير متطابقتين!");
+          return;
         }
-      }
+
+        signupBtn.disabled = true;
+        signupBtn.innerText = "جاري إنشاء الحساب وإرسال البريد...";
+
+        try {
+          // 1. Register user in Supabase
+          const { data, error } = await _supabase.auth.signUp({
+            email: email,
+            password: password,
+            options: {
+              data: {
+                full_name: name,
+              }
+            }
+          });
+
+          if (error) {
+            alert("خطأ في إنشاء الحساب: " + error.message);
+          } else {
+            // 2. Send welcome/verification email via EmailJS
+            const templateParams = {
+              user_name: name,
+              to_email: email,
+              message: "شكراً لانضمامك إلى Anime On! حسابك قيد التفعيل. يرجى التحقق من بريدك الإلكتروني لتأكيد التسجيل."
+            };
+
+            await emailjs.send("service_wbjwcsh", "template_ig7363r", templateParams);
+            
+            alert("تم إنشاء الحساب بنجاح! تم إرسال رسالة ترحيب لبريدك الإلكتروني.");
+            window.location.href = "Login.html";
+          }
+        } catch (err) {
+          console.error("Error during signup process:", err);
+          alert("حدث خطأ أثناء العملية، يرجى المحاولة لاحقاً.");
+        } finally {
+          signupBtn.disabled = false;
+          signupBtn.innerText = "اشترك الآن";
+        }
+      });
     </script>
   </body>
 </html>
-<script src="../pages/auth.js"></script>

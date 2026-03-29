@@ -1,10 +1,43 @@
 <!doctype html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>مشاهدة Dr. Stone - Anime On</title>
     <link rel="stylesheet" href="episode-style.css" />
+    <style>
+      .auth-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+        border-radius: 8px;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+      .auth-overlay a {
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: #45f3ff;
+        color: #0b0c10;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+      .anime-card {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
@@ -26,7 +59,7 @@
 
         <div class="anime-poster">
           <img
-            src="https://share.google/OZiFRCBxchAlIMmWC"
+            src="https://via.placeholder.com/200x300?text=Dr.+Stone"
             alt="Dr. Stone Poster"
             style="width: 200px"
           />
@@ -35,16 +68,20 @@
 
       <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0" />
       <div class="main-content-wrapper">
-        <div class="video-area">
+        <div class="video-area" style="position: relative;">
+          <div id="video-auth-overlay" class="auth-overlay" style="display: none;">
+            <h3>يرجى تسجيل الدخول لمشاهدة الحلقة</h3>
+            <a href="Login.html">تسجيل الدخول الآن</a>
+          </div>
           <h3>اختر سيرفر المشاهدة:</h3>
           <div class="server-buttons">
-            <button class="server-button" onclick="changeServer('url1')">
+            <button class="server-button" onclick="changeServer('https://www.youtube.com/embed/tgbNymZ7vqY')">
               سيرفر 1
             </button>
-            <button class="server-button" onclick="changeServer('url2')">
+            <button class="server-button" onclick="changeServer('https://www.youtube.com/embed/d96cjJh7yrg')">
               سيرفر 2
             </button>
-            <button class="server-button" onclick="changeServer('url3')">
+            <button class="server-button" onclick="changeServer('https://www.youtube.com/embed/9XvXFntT8S8')">
               سيرفر 3
             </button>
           </div>
@@ -62,16 +99,15 @@
         <div class="episode-sidebar">
           <h3>قائمة الحلقات</h3>
           <div class="episode-list">
-            <a href="#" class="ep-item active">الحلقة 1</a>
-            <a href="#" class="ep-item">الحلقة 2</a>
-            <a href="#" class="ep-item">الحلقة 3</a>
-            <a href="#" class="ep-item">الحلقة 4</a>
-            <a href="#" class="ep-item">الحلقة 5</a>
+            <a href="#" class="ep-item active" onclick="changeEpisode('https://www.youtube.com/embed/tgbNymZ7vqY', this); return false;">الحلقة 1</a>
+            <a href="#" class="ep-item" onclick="changeEpisode('https://www.youtube.com/embed/d96cjJh7yrg', this); return false;">الحلقة 2</a>
+            <a href="#" class="ep-item" onclick="changeEpisode('https://www.youtube.com/embed/9XvXFntT8S8', this); return false;">الحلقة 3</a>
+            <a href="#" class="ep-item" onclick="changeEpisode('https://www.youtube.com/embed/tgbNymZ7vqY', this); return false;">الحلقة 4</a>
+            <a href="#" class="ep-item" onclick="changeEpisode('https://www.youtube.com/embed/d96cjJh7yrg', this); return false;">الحلقة 5</a>
           </div>
         </div>
       </div>
-      function changeServer(url) { document.getElementById('main-player').src =
-      url; }
+
       <div
         class="navigation-buttons"
         style="
@@ -84,73 +120,118 @@
         <button class="server-button">الحلقة السابقة</button>
         <button class="server-button">الحلقة التالية</button>
       </div>
+
       <div class="comments-section">
         <h3>التعليقات:</h3>
 
-        <div class="comment-input">
-          <textarea placeholder="اكتب رأيك في الحلقة..."></textarea>
-          <button class="server-button">نشر التعليق</button>
+        <div class="comment-input" id="comment-area">
+          <textarea id="comment-text" placeholder="اكتب رأيك في الحلقة..."></textarea>
+          <button class="server-button" onclick="postComment()">نشر التعليق</button>
+        </div>
+        <div id="comment-auth-msg" style="display: none; color: #ccc; margin-bottom: 20px;">
+          يجب <a href="Login.html" style="color: #45f3ff;">تسجيل الدخول</a> لتتمكن من التعليق.
         </div>
 
-        <div class="user-comment">
-          <strong>أحمد:</strong>
-          <p>حلقة خرافية! سينكو دائمًا بيبهرنا بذكائه. 🔥</p>
+        <div id="comments-list">
+          <div class="user-comment">
+            <strong>أحمد:</strong>
+            <p>حلقة خرافية! سينكو دائمًا بيبهرنا بذكائه. 🔥</p>
+          </div>
         </div>
       </div>
+
       <div class="recommended-section">
         <h3 class="section-title">أنميات مشابهة قد تعجبك</h3>
         <div id="real-content" class="anime-grid">
-          <div class="anime-card">
+          <a href="episode.html" class="anime-card">
             <div class="card-img">
-              <img src="https://image-url-here.jpg" alt="Anime Name" />
+              <img src="https://via.placeholder.com/200x280?text=Steins+Gate" alt="Steins Gate" />
+              <span class="type">خيال علمي</span>
+            </div>
+            <h4>Steins Gate</h4>
+            <span class="view-btn">مشاهدة الآن</span>
+          </a>
+          <a href="episode.html" class="anime-card">
+            <div class="card-img">
+              <img src="https://via.placeholder.com/200x280?text=No+Game+No+Life" alt="No Game No Life" />
               <span class="type">مغامرات</span>
             </div>
-            <h4>اسم الأنمي هنا</h4>
-            <a href="#" class="view-btn">مشاهدة الآن</a>
-          </div>
-        </div>
-        <div id="skeleton-wrapper" class="anime-grid">
-          <div class="skeleton-card">
-            <div class="skeleton-img"></div>
-            <div class="skeleton-text"></div>
-            <div class="skeleton-btn"></div>
-          </div>
-          <div class="skeleton-card">
-            <div class="skeleton-img"></div>
-            <div class="skeleton-text"></div>
-            <div class="skeleton-btn"></div>
-          </div>
-        </div>
-        <div class="anime-card">
-          <div class="card-img">
-            <img src="https://another-image-url.jpg" alt="Anime Name" />
-            <span class="type">خيال علمي</span>
-          </div>
-          <h4>اسم أنمي ثاني</h4>
-          <a href="#" class="view-btn">مشاهدة الآن</a>
+            <h4>No Game No Life</h4>
+            <span class="view-btn">مشاهدة الآن</span>
+          </a>
         </div>
       </div>
     </div>
-    <script>
-      // دالة لتغيير الحلقة (وتلوين الزرار اللي ضغطت عليه)
-      function changeEpisode(videoUrl, element) {
-        // 1. تغيير فيديو المشغل
-        document.getElementById("main-player").src = videoUrl;
 
-        // 2. شيل اللون الأخضر (active) من كل الحلقات
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/supabase-config.js"></script>
+    <script>
+      let currentUser = null;
+
+      async function checkAuth() {
+        const { data: { session } } = await _supabase.auth.getSession();
+        currentUser = session ? session.user : null;
+
+        const overlay = document.getElementById('video-auth-overlay');
+        const player = document.getElementById('main-player');
+        const commentArea = document.getElementById('comment-area');
+        const commentAuthMsg = document.getElementById('comment-auth-msg');
+
+        if (!currentUser) {
+          overlay.style.display = 'flex';
+          player.style.filter = 'blur(10px)';
+          player.style.pointerEvents = 'none';
+          commentArea.style.display = 'none';
+          commentAuthMsg.style.display = 'block';
+        } else {
+          overlay.style.display = 'none';
+          player.style.filter = 'none';
+          player.style.pointerEvents = 'auto';
+          commentArea.style.display = 'block';
+          commentAuthMsg.style.display = 'none';
+        }
+      }
+
+      function changeEpisode(videoUrl, element) {
+        if (!currentUser) {
+          alert("يرجى تسجيل الدخول أولاً!");
+          return;
+        }
+        document.getElementById("main-player").src = videoUrl;
         let allEpisodes = document.querySelectorAll(".ep-item");
         allEpisodes.forEach((ep) => {
           ep.classList.remove("active");
         });
-
-        // 3. حط اللون الأخضر على الحلقة اللي ضغطت عليها حالياً
         element.classList.add("active");
       }
 
-      // دالة لتغيير السيرفر (بتغير الفيديو بس وتخلي الحلقة زي ما هي)
       function changeServer(url) {
+        if (!currentUser) {
+          alert("يرجى تسجيل الدخول أولاً!");
+          return;
+        }
         document.getElementById("main-player").src = url;
       }
+
+      function postComment() {
+        const text = document.getElementById('comment-text').value;
+        if (!text) return;
+
+        const commentsList = document.getElementById('comments-list');
+        const newComment = document.createElement('div');
+        newComment.className = 'user-comment';
+        const userName = currentUser.user_metadata.full_name || currentUser.email;
+        newComment.innerHTML = `<strong>${userName}:</strong><p>${text}</p>`;
+        commentsList.prepend(newComment);
+        document.getElementById('comment-text').value = '';
+      }
+
+      checkAuth();
+      _supabase.auth.onAuthStateChange((event, session) => {
+        currentUser = session ? session.user : null;
+        checkAuth();
+      });
     </script>
   </body>
 </html>

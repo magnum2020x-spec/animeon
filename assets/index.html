@@ -274,6 +274,8 @@
         overflow: hidden;
         cursor: pointer;
         transition: all 0.3s ease;
+        display: block;
+        text-decoration: none;
       }
 
       .anime-card:hover {
@@ -465,8 +467,8 @@
           <li><a href="#anime">الأنمي</a></li>
           <li><a href="#stats">الإحصائيات</a></li>
           <li><a href="#contact">اتصل بنا</a></li>
-          <li>
-            <a href="pages/login.html" class="btn btn-login">دخول</a>
+          <li id="auth-nav-item">
+            <a href="pages/Login.html" class="btn btn-login">دخول</a>
           </li>
         </ul>
       </div>
@@ -481,8 +483,8 @@
           فريدة
         </p>
         <div class="hero-buttons">
-          <button class="btn btn-primary">ابدأ المشاهدة الآن</button>
-          <button class="btn btn-secondary">اعرف المزيد</button>
+          <button class="btn btn-primary" onclick="window.location.href='#anime'">ابدأ المشاهدة الآن</button>
+          <button class="btn btn-secondary" onclick="window.location.href='#features'">اعرف المزيد</button>
         </div>
       </div>
     </section>
@@ -499,132 +501,51 @@
           </p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">🎯</div>
-          <h3>توصيات ذكية</h3>
-          <p>نظام توصيات مخصص يقترح عليك أنمي بناءً على تفضيلاتك</p>
-        </div>
-        <div class="feature-card">
           <div class="feature-icon">🌍</div>
-          <h3>محتوى عالمي</h3>
-          <p>آلاف الأنمي من جميع أنحاء العالم مع ترجمات عربية احترافية</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">📱</div>
-          <h3>متوافق مع جميع الأجهزة</h3>
-          <p>استمتع بالمشاهدة على الهاتف والكمبيوتر والتلفاز بسلاسة</p>
+          <h3>محتوى ضخم</h3>
+          <p>أكثر من 5000 أنمي مترجم ومدبلج بجميع التصنيفات التي تحبها</p>
         </div>
         <div class="feature-card">
           <div class="feature-icon">⚡</div>
-          <h3>سرعة البث</h3>
-          <p>تقنيات تدفق متقدمة تضمن عدم توقف المشاهدة</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">👥</div>
-          <h3>مجتمع نشط</h3>
-          <p>تفاعل مع ملايين محبي الأنمي حول العالم</p>
+          <h3>سرعة خيالية</h3>
+          <p>خوادم سريعة جداً تضمن لك تجربة مشاهدة خالية من التقطيع</p>
         </div>
       </div>
     </section>
 
     <!-- Anime Showcase -->
     <section class="anime-showcase" id="anime">
-      <h2 class="section-title">أنميات مشهورة</h2>
+      <h2 class="section-title">أحدث الحلقات</h2>
       <div class="anime-grid">
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=Attack+on+Titan"
-            alt="Attack on Titan"
-          />
+        <!-- Sample Anime Cards linked to episode.html -->
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1578632292335-df3abbb0d586?q=80&w=1000&auto=format&fit=crop" alt="Anime">
           <div class="anime-info">
-            <div class="anime-title">Attack on Titan</div>
-            <div class="anime-rating">⭐ 9.0/10</div>
+            <div class="anime-title">هجوم العمالقة</div>
+            <div class="anime-rating">⭐ 9.8</div>
           </div>
-        </div>
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=Death+Note"
-            alt="Death Note"
-          />
+        </a>
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1000&auto=format&fit=crop" alt="Anime">
           <div class="anime-info">
-            <div class="anime-title">Death Note</div>
-            <div class="anime-rating">⭐ 8.9/10</div>
+            <div class="anime-title">ون بيس</div>
+            <div class="anime-rating">⭐ 9.5</div>
           </div>
-        </div>
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=Demon+Slayer"
-            alt="Demon Slayer"
-          />
+        </a>
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1541562232579-512a21360020?q=80&w=1000&auto=format&fit=crop" alt="Anime">
           <div class="anime-info">
-            <div class="anime-title">Demon Slayer</div>
-            <div class="anime-rating">⭐ 8.8/10</div>
+            <div class="anime-title">قاتل الشياطين</div>
+            <div class="anime-rating">⭐ 9.7</div>
           </div>
-        </div>
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=My+Hero+Academia"
-            alt="My Hero Academia"
-          />
+        </a>
+        <a href="pages/episode.html" class="anime-card">
+          <img src="https://images.unsplash.com/photo-1560972550-aba3456b5564?q=80&w=1000&auto=format&fit=crop" alt="Anime">
           <div class="anime-info">
-            <div class="anime-title">My Hero Academia</div>
-            <div class="anime-rating">⭐ 8.7/10</div>
+            <div class="anime-title">ناروتو شيبودن</div>
+            <div class="anime-rating">⭐ 9.4</div>
           </div>
-        </div>
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=Naruto"
-            alt="Naruto"
-          />
-          <div class="anime-info">
-            <div class="anime-title">Naruto</div>
-            <div class="anime-rating">⭐ 8.5/10</div>
-          </div>
-        </div>
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=One+Piece"
-            alt="One Piece"
-          />
-          <div class="anime-info">
-            <div class="anime-title">One Piece</div>
-            <div class="anime-rating">⭐ 8.6/10</div>
-          </div>
-        </div>
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=Steins+Gate"
-            alt="Steins Gate"
-          />
-          <div class="anime-info">
-            <div class="anime-title">Steins Gate</div>
-            <div class="anime-rating">⭐ 9.1/10</div>
-          </div>
-        </div>
-        <div class="anime-card">
-          <img
-            src="https://via.placeholder.com/200x280?text=Jujutsu+Kaisen"
-            alt="Jujutsu Kaisen"
-          />
-          <div class="anime-info">
-            <div class="anime-title">Jujutsu Kaisen</div>
-            <div class="anime-rating">⭐ 8.9/10</div>
-          </div>
-        </div>
-        <div class="anime-card">
-          <a
-            href="pages/episode.html"
-            style="text-decoration: none; color: inherit"
-          >
-            <img
-              src="https://via.placeholder.com/200x280?text=Dr.+Stone"
-              alt="dr stone"
-            />
-            <div class="anime-info">
-              <div class="anime-title">dr stone</div>
-              <div class="anime-rating">⭐ 9.0/10</div>
-            </div>
-          </a>
-        </div>
+        </a>
       </div>
     </section>
 
@@ -632,89 +553,96 @@
     <section class="stats" id="stats">
       <div class="stats-grid">
         <div class="stat-item">
-          <h4>50,000+</h4>
-          <p>حلقة أنمي</p>
-        </div>
-        <div class="stat-item">
-          <h4>5,000+</h4>
-          <p>سلسلة أنمي</p>
-        </div>
-        <div class="stat-item">
-          <h4>10M+</h4>
+          <h4>+1M</h4>
           <p>مستخدم نشط</p>
         </div>
         <div class="stat-item">
+          <h4>+5K</h4>
+          <p>أنمي متاح</p>
+        </div>
+        <div class="stat-item">
+          <h4>+50K</h4>
+          <p>حلقة مترجمة</p>
+        </div>
+        <div class="stat-item">
           <h4>24/7</h4>
-          <p>دعم العملاء</p>
+          <p>دعم فني</p>
         </div>
       </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="cta" id="contact">
-      <h2>هل أنت مستعد للانضمام؟</h2>
-      <p>ابدأ رحلتك مع أفضل منصة لمشاهدة الأنمي اليوم</p>
-      <button class="btn btn-primary">اشترك الآن مجاناً</button>
+    <section class="cta">
+      <h2>جاهز لبدء مغامرتك؟</h2>
+      <p>انضم لآلاف المشاهدين الآن واستمتع بأفضل تجربة مشاهدة أنمي</p>
+      <button class="btn btn-primary" onclick="window.location.href='pages/signup.html'">إنشاء حساب مجاني</button>
     </section>
 
     <!-- Footer -->
     <footer>
       <div class="footer-content">
         <div class="footer-section">
-          <h4>عن Anime On</h4>
-          <p style="color: var(--gray-400); margin-bottom: 1rem">
-            منصة عربية رائدة لمشاهدة الأنمي بجودة عالية وترجمات احترافية
-          </p>
+          <h4>Anime On</h4>
+          <p>أفضل منصة لمشاهدة الأنمي في العالم العربي</p>
         </div>
         <div class="footer-section">
-          <h4>الروابط السريعة</h4>
-          <a href="#">الصفحة الرئيسية</a>
-          <a href="#">الأنمي</a>
-          <a href="#">الفئات</a>
-          <a href="#">البحث</a>
+          <h4>روابط سريعة</h4>
+          <a href="#">الرئيسية</a>
+          <a href="#">قائمة الأنمي</a>
+          <a href="#">أحدث الحلقات</a>
         </div>
         <div class="footer-section">
           <h4>الدعم</h4>
           <a href="#">مركز المساعدة</a>
-          <a href="#">الأسئلة الشائعة</a>
-          <a href="#">اتصل بنا</a>
-          <a href="#">الشروط والأحكام</a>
-        </div>
-        <div class="footer-section">
-          <h4>تابعنا</h4>
-          <a href="#">Facebook</a>
-          <a href="#">Twitter</a>
-          <a href="#">Instagram</a>
-          <a href="#">YouTube</a>
+          <a href="#">شروط الاستخدام</a>
+          <a href="#">سياسة الخصوصية</a>
         </div>
       </div>
       <div class="footer-bottom">
-        <p>
-          &copy; 2026 Anime On. جميع الحقوق محفوظة. صُنع بـ ❤️ من قبل فريق Anime
-          On
-        </p>
+        <p>جميع الحقوق محفوظة &copy; 2024 Anime On</p>
       </div>
     </footer>
 
-    <!-- JavaScript Files -->
-    <script src="js/main.js"></script>
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabase-config.js"></script>
     <script>
-      function updateNavbar() {
-        const isLoggedIn = localStorage.getItem("isLoggedIn");
-        const loginBtn = document.querySelector(".btn-login");
+      async function updateAuthUI() {
+        const authNavItem = document.getElementById('auth-nav-item');
+        const { data: { session } } = await _supabase.auth.getSession();
 
-        if (isLoggedIn === "true" && loginBtn) {
-          loginBtn.innerHTML = "خروج";
-          loginBtn.href = "#";
-          loginBtn.style.backgroundColor = "#ff4d4d"; // اختياري: تغيير لون الزر للأحمر عند الخروج
-
-          loginBtn.onclick = function () {
-            localStorage.removeItem("isLoggedIn");
-            location.reload();
-          };
+        if (session) {
+          const user = session.user;
+          const userName = user.user_metadata.full_name || user.email;
+          authNavItem.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: white; font-weight: 600;">مرحباً، ${userName}</span>
+              <button onclick="handleLogout()" class="btn btn-login" style="background: #ef4444; border: none;">خروج</button>
+            </div>
+          `;
+        } else {
+          authNavItem.innerHTML = `
+            <a href="pages/Login.html" class="btn btn-login">دخول</a>
+          `;
         }
       }
-      window.onload = updateNavbar;
+
+      async function handleLogout() {
+        const { error } = await _supabase.auth.signOut();
+        if (error) {
+          alert("خطأ أثناء تسجيل الخروج: " + error.message);
+        } else {
+          window.location.reload();
+        }
+      }
+
+      // Initial UI update
+      updateAuthUI();
+
+      // Listen for auth state changes
+      _supabase.auth.onAuthStateChange((event, session) => {
+        updateAuthUI();
+      });
     </script>
   </body>
 </html>
