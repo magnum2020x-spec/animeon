@@ -176,23 +176,30 @@
           });
 
           if (error) {
-            alert("خطأ في إنشاء الحساب: " + error.message);
+            alert("خطأ في إنشاء الحساب (Supabase): " + error.message);
           } else {
             // 2. Send welcome/verification email via EmailJS
-            const templateParams = {
-              user_name: name,
-              to_email: email,
-              message: "شكراً لانضمامك إلى Anime On! حسابك قيد التفعيل. يرجى التحقق من بريدك الإلكتروني لتأكيد التسجيل."
-            };
+            try {
+              const templateParams = {
+                user_name: name,
+                to_email: email,
+                message: "شكراً لانضمامك إلى Anime On! حسابك قيد التفعيل. يرجى التحقق من بريدك الإلكتروني لتأكيد التسجيل."
+              };
 
-            await emailjs.send("service_wbjwcsh", "template_ig7363r", templateParams);
-            
-            alert("تم إنشاء الحساب بنجاح! تم إرسال رسالة ترحيب لبريدك الإلكتروني.");
-            window.location.href = "Login.html";
+              await emailjs.send("service_wbjwcsh", "template_ig7363r", templateParams);
+              
+              alert("تم إنشاء الحساب بنجاح! تم إرسال رسالة ترحيب لبريدك الإلكتروني.");
+              window.location.href = "Login.html";
+            } catch (emailErr) {
+              console.error("EmailJS Error:", emailErr);
+              alert("تم إنشاء الحساب في Supabase، ولكن فشل إرسال بريد الترحيب (EmailJS): " + (emailErr.text || emailErr.message || "خطأ غير معروف"));
+              // بالرغم من خطأ البريد، الحساب قد تم إنشاؤه، لذا نوجهه لتسجيل الدخول
+              window.location.href = "Login.html";
+            }
           }
         } catch (err) {
-          console.error("Error during signup process:", err);
-          alert("حدث خطأ أثناء العملية، يرجى المحاولة لاحقاً.");
+          console.error("General Signup Error:", err);
+          alert("حدث خطأ غير متوقع: " + err.message);
         } finally {
           signupBtn.disabled = false;
           signupBtn.innerText = "اشترك الآن";
