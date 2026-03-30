@@ -606,7 +606,19 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-config.js"></script>
+    <script src="js/tmdb-config.js"></script>
     <script>
+      // دالة لتحديث روابط الأنمي لتشمل الاسم
+      function updateAnimeLinks() {
+        const cards = document.querySelectorAll('.anime-card');
+        cards.forEach(card => {
+          const title = card.querySelector('.anime-title').textContent;
+          card.href = `pages/episode.html?name=${encodeURIComponent(title)}&season=1`;
+        });
+      }
+
+      window.addEventListener('DOMContentLoaded', updateAnimeLinks);
+
       async function updateAuthUI() {
         const authNavItem = document.getElementById('auth-nav-item');
         const { data: { session } } = await _supabase.auth.getSession();

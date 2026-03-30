@@ -166,8 +166,86 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../js/supabase-config.js"></script>
+    <script src="../js/tmdb-config.js"></script>
+    <script src="../js/jikan-config.js"></script>
     <script>
       let currentUser = null;
+      let currentAnimeId = null;
+      let currentMalId = null;
+      let currentSeason = 1;
+
+      // دالة لجلب معلومات الحلقة من TMDB و Jikan
+      async function loadEpisodeData(seriesId, season, episode, malId) {
+        // محاولة جلب البيانات من TMDB أولاً للصور والوصف العربي
+        const tmdbData = await TMDB_API.getEpisodeDetails(seriesId, season, episode);
+        
+        // جلب بيانات إضافية من Jikan (مثل العناوين بالإنجليزية/اليابانية والتقييم)
+        let jikanData = null;
+        if (malId) {
+            const jikanRes = await Jikan_API.getEpisodeById(malId, episode);
+            jikanData = jikanRes ? jikanRes.data : null;
+        }
+
+        if (tmdbData) {
+          document.querySelector('.anime-info h1').textContent = tmdbData.name || (jikanData ? jikanData.title : `الحلقة ${episode}`);
+          document.querySelector('.anime-info p').textContent = tmdbData.overview || (jikanData ? jikanData.synopsis : "لا يوجد وصف لهذه الحلقة حالياً.");
+          
+          if (tmdbData.still_path) {
+            document.querySelector('.anime-poster img').src = `https://image.tmdb.org/t/p/w500${tmdbData.still_path}`;
+          }
+
+          const meta = document.querySelector('.anime-meta');
+          meta.innerHTML = `
+            <span style="color: #ffcc00">تاريخ العرض:</span> ${tmdbData.air_date || (jikanData ? jikanData.aired : 'غير معروف')} |
+            <span style="color: #ffcc00">الموسم:</span> ${season} |
+            <span style="color: #ffcc00">الحلقة:</span> ${episode} ${jikanData && jikanData.score ? `| <span style="color: #ffcc00">التقييم:</span> ⭐ ${jikanData.score}` : ''}
+          `;
+        }
+      }
+
+      // دالة لجلب قائمة الحلقات
+      async function loadSeasonEpisodes(seriesId, season, malId) {
+        const tmdbData = await TMDB_API.getSeasonDetails(seriesId, season);
+        
+        if (tmdbData && tmdbData.episodes) {
+          const episodeList = document.querySelector('.episode-list');
+          episodeList.innerHTML = ''; 
+          
+          tmdbData.episodes.forEach(ep => {
+            const epItem = document.createElement('a');
+            epItem.href = "#";
+            epItem.className = `ep-item ${ep.episode_number === 1 ? 'active' : ''}`;
+            epItem.textContent = `الحلقة ${ep.episode_number}: ${ep.name}`;
+            epItem.onclick = (e) => {
+              e.preventDefault();
+              changeEpisode(ep.episode_number, epItem);
+            };
+            episodeList.appendChild(epItem);
+          });
+
+          if (tmdbData.episodes.length > 0) {
+            loadEpisodeData(seriesId, season, 1, malId);
+          }
+        }
+      }
+
+      async function changeEpisode(episodeNumber, element) {
+        if (!currentUser) {
+          alert("يرجى تسجيل الدخول أولاً!");
+          return;
+        }
+        
+        const mockVideoUrl = `https://www.youtube.com/embed/tgbNymZ7vqY?rel=${episodeNumber}`;
+        document.getElementById("main-player").src = mockVideoUrl;
+        
+        let allEpisodes = document.querySelectorAll(".ep-item");
+        allEpisodes.forEach((ep) => ep.classList.remove("active"));
+        element.classList.add("active");
+
+        if (currentAnimeId) {
+          loadEpisodeData(currentAnimeId, currentSeason, episodeNumber, currentMalId);
+        }
+      }
 
       async function checkAuth() {
         const { data: { session } } = await _supabase.auth.getSession();
@@ -231,6 +309,36 @@
       _supabase.auth.onAuthStateChange((event, session) => {
         currentUser = session ? session.user : null;
         checkAuth();
+      });
+
+      // البدء بجلب البيانات عند تحميل الصفحة
+      window.addEventListener('DOMContentLoaded', async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const animeName = urlParams.get('name') || 'Dr. Stone';
+        currentSeason = parseInt(urlParams.get('season')) || 1;
+
+        // البحث عن الأنمي في TMDB و Jikan للحصول على الـ IDs
+        const [tmdbResult, jikanResult] = await Promise.all([
+          TMDB_API.searchTV(animeName),
+          Jikan_API.searchAnime(animeName)
+        ]);
+
+        if (tmdbResult && tmdbResult.results.length > 0) {
+          currentAnimeId = tmdbResult.results[0].id;
+          
+          if (jikanResult && jikanResult.data.length > 0) {
+            currentMalId = jikanResult.data[0].mal_id;
+            // تحديث التقييم العام إذا وجد في MAL
+            const malScore = jikanResult.data[0].score;
+            if (malScore) {
+              console.log(`MAL Score for ${animeName}: ${malScore}`);
+            }
+          }
+          
+          loadSeasonEpisodes(currentAnimeId, currentSeason, currentMalId);
+        } else {
+          console.log("Anime not found on TMDB, using defaults.");
+        }
       });
     </script>
   </body>
