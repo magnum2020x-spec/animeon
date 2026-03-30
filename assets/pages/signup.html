@@ -20,7 +20,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        min-height: 100vh;
         color: white;
       }
 
@@ -33,6 +33,7 @@
         width: 380px;
         text-align: center;
         box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        margin: 20px;
       }
 
       h2 {
@@ -89,6 +90,12 @@
         transform: translateY(-2px);
       }
 
+      .signup-btn:disabled {
+        background: #999;
+        cursor: not-allowed;
+        transform: none;
+      }
+
       .footer-links {
         margin-top: 20px;
         font-size: 14px;
@@ -99,11 +106,35 @@
         text-decoration: none;
         font-weight: bold;
       }
+
+      .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        text-align: center;
+        display: none;
+      }
+
+      .alert.success {
+        background: rgba(76, 175, 80, 0.3);
+        color: #4caf50;
+        border: 1px solid #4caf50;
+        display: block;
+      }
+
+      .alert.error {
+        background: rgba(244, 67, 54, 0.3);
+        color: #f44336;
+        border: 1px solid #f44336;
+        display: block;
+      }
     </style>
   </head>
   <body>
     <div class="signup-card">
       <h2>إنشاء حساب Anime On</h2>
+
+      <div id="alertBox" class="alert"></div>
 
       <form id="signupForm">
         <div class="input-group">
@@ -136,70 +167,73 @@
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="../js/supabase-config.js"></script>
     <script>
-      // Initialize EmailJS with your Public Key
-      (function() {
-          emailjs.init("Eo4wdYx57rOHdysj5");
-      })();
-
       const signupForm = document.getElementById("signupForm");
       const signupBtn = document.getElementById("signupBtn");
+      const alertBox = document.getElementById("alertBox");
+
+      function showAlert(message, type) {
+        alertBox.textContent = message;
+        alertBox.className = `alert ${type}`;
+        setTimeout(() => {
+          alertBox.className = "alert";
+        }, 5000);
+      }
 
       signupForm.addEventListener("submit", async function(e) {
         e.preventDefault();
         
-        const name = document.getElementById("userName").value;
-        const email = document.getElementById("userEmail").value;
+        const name = document.getElementById("userName").value.trim();
+        const email = document.getElementById("userEmail").value.trim();
         const password = document.getElementById("userPassword").value;
         const confirmPass = document.getElementById("confirmPassword").value;
 
+        // التحقق من صحة البيانات
+        if (!name || !email || !password || !confirmPass) {
+          showAlert("يرجى ملء جميع الحقول المطلوبة", "error");
+          return;
+        }
+
+        if (password.length < 6) {
+          showAlert("كلمة المرور يجب أن تكون 6 أحرف على الأقل", "error");
+          return;
+        }
+
         if (password !== confirmPass) {
-          alert("كلمتا المرور غير متطابقتين!");
+          showAlert("كلمتا المرور غير متطابقتين!", "error");
           return;
         }
 
         signupBtn.disabled = true;
-        signupBtn.innerText = "جاري إنشاء الحساب وإرسال البريد...";
+        signupBtn.innerText = "جاري إنشاء الحساب...";
 
         try {
-          // 1. Register user in Supabase
+          // إنشاء الحساب في Supabase بدون التحقق من البريد الإلكتروني
           const { data, error } = await _supabase.auth.signUp({
             email: email,
             password: password,
             options: {
               data: {
                 full_name: name,
-              }
+              },
+              emailRedirectTo: undefined // إلغاء رسالة التحقق
             }
           });
 
           if (error) {
-            alert("خطأ في إنشاء الحساب (Supabase): " + error.message);
-          } else {
-            // 2. Send welcome/verification email via EmailJS
-            try {
-              const templateParams = {
-                user_name: name,
-                to_email: email,
-                message: "شكراً لانضمامك إلى Anime On! حسابك قيد التفعيل. يرجى التحقق من بريدك الإلكتروني لتأكيد التسجيل."
-              };
-
-              await emailjs.send("service_wbjwcsh", "template_ig7363r", templateParams);
-              
-              alert("تم إنشاء الحساب بنجاح! تم إرسال رسالة ترحيب لبريدك الإلكتروني.");
+            showAlert("خطأ في إنشاء الحساب: " + error.message, "error");
+          } else if (data.user) {
+            showAlert("تم إنشاء الحساب بنجاح! يتم توجيهك لصفحة تسجيل الدخول...", "success");
+            
+            // تأخير قبل التوجيه للسماح للمستخدم برؤية الرسالة
+            setTimeout(() => {
               window.location.href = "Login.html";
-            } catch (emailErr) {
-              console.error("EmailJS Error:", emailErr);
-              alert("تم إنشاء الحساب في Supabase، ولكن فشل إرسال بريد الترحيب (EmailJS): " + (emailErr.text || emailErr.message || "خطأ غير معروف"));
-              // بالرغم من خطأ البريد، الحساب قد تم إنشاؤه، لذا نوجهه لتسجيل الدخول
-              window.location.href = "Login.html";
-            }
+            }, 2000);
           }
         } catch (err) {
-          console.error("General Signup Error:", err);
-          alert("حدث خطأ غير متوقع: " + err.message);
+          console.error("Signup Error:", err);
+          showAlert("حدث خطأ غير متوقع: " + (err.message || "حاول مرة أخرى"), "error");
         } finally {
           signupBtn.disabled = false;
           signupBtn.innerText = "اشترك الآن";
