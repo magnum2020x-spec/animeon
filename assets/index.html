@@ -36,6 +36,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 2rem;
       }
 
       .logo {
@@ -49,48 +50,255 @@
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        white-space: nowrap;
       }
 
-      .nav-links {
+      /* Search Bar */
+      .search-container {
+        flex: 1;
+        max-width: 400px;
         display: flex;
-        gap: 2rem;
-        list-style: none;
         align-items: center;
+        gap: 0.5rem;
       }
 
-      .nav-links a {
+      .search-input {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        border-radius: 0.5rem;
+        background: rgba(31, 41, 55, 0.6);
+        color: var(--white);
+        font-family: "Cairo", sans-serif;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+      }
+
+      .search-input::placeholder {
+        color: var(--gray-500);
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: rgba(31, 41, 55, 0.8);
+        box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1);
+      }
+
+      .search-results {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        max-height: 400px;
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        border-radius: 0.5rem;
+        margin-top: 0.5rem;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+      }
+
+      .search-results.active {
+        display: block;
+      }
+
+      .search-result-item {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .search-result-item:hover {
+        background: rgba(168, 85, 247, 0.1);
+      }
+
+      .search-result-item h4 {
+        color: var(--white);
+        margin-bottom: 0.25rem;
+        font-size: 0.95rem;
+      }
+
+      .search-result-item p {
+        color: var(--gray-400);
+        font-size: 0.85rem;
+        margin: 0;
+      }
+
+      /* Theme Toggle Button */
+      .theme-toggle {
+        background: rgba(168, 85, 247, 0.2);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        color: var(--secondary);
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      .theme-toggle:hover {
+        background: rgba(168, 85, 247, 0.3);
+        border-color: var(--primary);
+      }
+
+      /* Sidebar Toggle Button */
+      .sidebar-toggle {
+        background: rgba(168, 85, 247, 0.2);
+        border: 1px solid rgba(168, 85, 247, 0.3);
+        color: var(--secondary);
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+      }
+
+      .sidebar-toggle:hover {
+        background: rgba(168, 85, 247, 0.3);
+        border-color: var(--primary);
+      }
+
+      /* Sidebar */
+      .sidebar {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        background: rgba(15, 23, 42, 0.95);
+        border-left: 1px solid rgba(168, 85, 247, 0.2);
+        padding: 2rem 1.5rem;
+        overflow-y: auto;
+        z-index: 200;
+        transition: right 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .sidebar.active {
+        right: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .sidebar-header h3 {
+        color: var(--white);
+        font-size: 1.3rem;
+        margin: 0;
+      }
+
+      .sidebar-close {
+        background: none;
+        border: none;
+        color: var(--secondary);
+        font-size: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-close:hover {
+        color: var(--primary);
+      }
+
+      .sidebar-section {
+        margin-bottom: 2rem;
+      }
+
+      .sidebar-section h4 {
+        color: var(--primary);
+        font-size: 0.95rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .sidebar-links {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .sidebar-links a {
         color: var(--gray-300);
         text-decoration: none;
-        font-weight: 600;
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
         transition: all 0.3s ease;
-        position: relative;
+        display: block;
       }
 
-      .nav-links a:hover {
+      .sidebar-links a:hover {
+        background: rgba(168, 85, 247, 0.1);
         color: var(--secondary);
+        padding-right: 1.5rem;
       }
 
-      .nav-links a::after {
-        content: "";
-        position: absolute;
-        bottom: -5px;
-        right: 0;
-        width: 0;
-        height: 2px;
-        background: linear-gradient(90deg, var(--primary), var(--secondary));
-        transition: width 0.3s ease;
+      .sidebar-stats {
+        background: rgba(31, 41, 55, 0.5);
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        border-radius: 0.75rem;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
       }
 
-      .nav-links a:hover::after {
-        width: 100%;
+      .stat-mini {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
       }
 
-      .nav-links a.active {
+      .stat-mini:last-child {
+        margin-bottom: 0;
+      }
+
+      .stat-mini-label {
+        color: var(--gray-400);
+        font-size: 0.9rem;
+      }
+
+      .stat-mini-value {
         color: var(--secondary);
+        font-weight: 700;
+        font-size: 1.1rem;
       }
 
-      .nav-links a.active::after {
+      /* Overlay */
+      .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 150;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .sidebar-overlay.active {
+        opacity: 1;
+        visibility: visible;
       }
 
       /* Hero Section */
@@ -424,6 +632,61 @@
         color: var(--gray-400);
       }
 
+      /* Dark Mode */
+      body.dark-mode {
+        background: linear-gradient(135deg, #0f172a 0%, #1a0033 50%, #0c2a4e 100%);
+      }
+
+      body.light-mode {
+        background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 50%, #f0f1f3 100%);
+        color: var(--gray-800);
+      }
+
+      body.light-mode nav {
+        background: rgba(255, 255, 255, 0.8);
+        border-bottom-color: rgba(168, 85, 247, 0.1);
+      }
+
+      body.light-mode .search-input {
+        background: rgba(255, 255, 255, 0.6);
+        color: var(--gray-800);
+        border-color: rgba(168, 85, 247, 0.2);
+      }
+
+      body.light-mode .search-input::placeholder {
+        color: var(--gray-500);
+      }
+
+      body.light-mode .search-results {
+        background: rgba(255, 255, 255, 0.95);
+      }
+
+      body.light-mode .search-result-item {
+        border-bottom-color: rgba(168, 85, 247, 0.1);
+      }
+
+      body.light-mode .search-result-item h4 {
+        color: var(--gray-800);
+      }
+
+      body.light-mode .sidebar {
+        background: rgba(255, 255, 255, 0.95);
+        border-left-color: rgba(168, 85, 247, 0.1);
+      }
+
+      body.light-mode .sidebar-header h3 {
+        color: var(--gray-800);
+      }
+
+      body.light-mode .sidebar-links a {
+        color: var(--gray-700);
+      }
+
+      body.light-mode .sidebar-links a:hover {
+        background: rgba(168, 85, 247, 0.1);
+        color: var(--primary);
+      }
+
       /* Responsive */
       @media (max-width: 768px) {
         .hero h1 {
@@ -438,13 +701,26 @@
           font-size: 1.8rem;
         }
 
-        .nav-links {
-          gap: 1rem;
-          font-size: 0.9rem;
-        }
-
         .navbar-container {
           padding: 0 1rem;
+          gap: 0.5rem;
+        }
+
+        .search-container {
+          max-width: 200px;
+        }
+
+        .search-input {
+          font-size: 0.85rem;
+          padding: 0.5rem 0.75rem;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .sidebar-toggle {
+          display: flex;
         }
 
         .hero-buttons {
@@ -454,19 +730,128 @@
         .btn {
           width: 100%;
         }
+
+        .anime-grid {
+          grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        }
+      }
+
+      @media (max-width: 480px) {
+        .logo {
+          font-size: 1.3rem;
+        }
+
+        .search-container {
+          max-width: 150px;
+        }
+
+        .search-input {
+          font-size: 0.8rem;
+          padding: 0.4rem 0.6rem;
+        }
+
+        .theme-toggle,
+        .sidebar-toggle {
+          width: 36px;
+          height: 36px;
+          padding: 0.4rem;
+        }
+
+        .sidebar {
+          width: 250px;
+          right: -250px;
+        }
+
+        .anime-grid {
+          grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+          gap: 1rem;
+        }
       }
     </style>
   </head>
   <body>
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <h3>القائمة</h3>
+        <button class="sidebar-close" id="sidebarClose">✕</button>
+      </div>
+
+      <!-- Sidebar Content Container (Dynamic) -->
+      <div id="sidebarDynamicContent">
+        <!-- Features Section in Sidebar -->
+        <div class="sidebar-section">
+          <h4>المميزات</h4>
+          <ul class="sidebar-links">
+            <li><a href="#features">جودة عالية</a></li>
+            <li><a href="#features">محتوى ضخم</a></li>
+            <li><a href="#features">سرعة خيالية</a></li>
+          </ul>
+        </div>
+
+        <!-- Stats Section in Sidebar -->
+        <div class="sidebar-section">
+          <h4>الإحصائيات</h4>
+          <div class="sidebar-stats">
+            <div class="stat-mini">
+              <span class="stat-mini-label">المستخدمون</span>
+              <span class="stat-mini-value">+1M</span>
+            </div>
+            <div class="stat-mini">
+              <span class="stat-mini-label">الأنمي المتاح</span>
+              <span class="stat-mini-value">+5K</span>
+            </div>
+            <div class="stat-mini">
+              <span class="stat-mini-label">الحلقات المترجمة</span>
+              <span class="stat-mini-value">+50K</span>
+            </div>
+            <div class="stat-mini">
+              <span class="stat-mini-label">الدعم الفني</span>
+              <span class="stat-mini-value">24/7</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Section in Sidebar -->
+        <div class="sidebar-section">
+          <h4>اتصل بنا</h4>
+          <ul class="sidebar-links">
+            <li><a href="mailto:support@animeon.com">البريد الإلكتروني</a></li>
+            <li><a href="#contact">نموذج التواصل</a></li>
+            <li><a href="#contact">الدعم الفني</a></li>
+          </ul>
+        </div>
+      </div>
+    </aside>
+
     <!-- Navigation -->
     <nav>
       <div class="navbar-container">
-        <a href="#" class="logo"> 🎬 Anime On </a>
-        <ul class="nav-links">
-          <li><a href="#features">الميزات</a></li>
-          <li><a href="#anime">الأنمي</a></li>
-          <li><a href="#stats">الإحصائيات</a></li>
-          <li><a href="#contact">اتصل بنا</a></li>
+        <a href="#" class="logo">🎬 Anime On</a>
+        
+        <!-- Search Bar -->
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-input"
+            id="searchInput"
+            placeholder="ابحث عن أنمي..."
+            autocomplete="off"
+          />
+          <div class="search-results" id="searchResults"></div>
+        </div>
+
+        <!-- Theme Toggle Button -->
+        <button class="theme-toggle" id="themeToggle" title="تبديل الوضع">🌙</button>
+
+        <!-- Sidebar Toggle Button -->
+        <button class="sidebar-toggle" id="sidebarToggle" title="القائمة">☰</button>
+
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links" id="navLinks">
           <li id="auth-nav-item">
             <a href="pages/Login.html" class="btn btn-login">دخول</a>
           </li>
@@ -482,33 +867,10 @@
           منصة مشاهدة الأنمي الأولى في العالم العربي بتقنيات عصرية وتجربة مستخدم
           فريدة
         </p>
-        <div class="hero-buttons">
+        <!-- Hero Buttons (Hidden by default, shown if not logged in) -->
+        <div class="hero-buttons" id="heroButtons" style="display: none;">
           <button class="btn btn-primary" onclick="window.location.href='#anime'">ابدأ المشاهدة الآن</button>
           <button class="btn btn-secondary" onclick="window.location.href='#features'">اعرف المزيد</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-      <h2 class="section-title">لماذا Anime On؟</h2>
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon">📺</div>
-          <h3>جودة عالية</h3>
-          <p>
-            مشاهدة الأنمي بجودات متعددة تصل إلى 4K مع أفضل معدل نقل البيانات
-          </p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">🌍</div>
-          <h3>محتوى ضخم</h3>
-          <p>أكثر من 5000 أنمي مترجم ومدبلج بجميع التصنيفات التي تحبها</p>
-        </div>
-        <div class="feature-card">
-          <div class="feature-icon">⚡</div>
-          <h3>سرعة خيالية</h3>
-          <p>خوادم سريعة جداً تضمن لك تجربة مشاهدة خالية من التقطيع</p>
         </div>
       </div>
     </section>
@@ -546,6 +908,30 @@
             <div class="anime-rating">⭐ 9.4</div>
           </div>
         </a>
+      </div>
+    </section>
+
+    <!-- Features Section (Moved below Anime Showcase) -->
+    <section class="features" id="features">
+      <h2 class="section-title">لماذا Anime On؟</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📺</div>
+          <h3>جودة عالية</h3>
+          <p>
+            مشاهدة الأنمي بجودات متعددة تصل إلى 4K مع أفضل معدل نقل البيانات
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌍</div>
+          <h3>محتوى ضخم</h3>
+          <p>أكثر من 5000 أنمي مترجم ومدبلج بجميع التصنيفات التي تحبها</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>سرعة خيالية</h3>
+          <p>خوادم سريعة جداً تضمن لك تجربة مشاهدة خالية من التقطيع</p>
+        </div>
       </div>
     </section>
 
@@ -607,8 +993,161 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="js/supabase-config.js"></script>
     <script src="js/tmdb-config.js"></script>
+    <script src="js/main.js"></script>
     <script>
-      // دالة لتحديث روابط الأنمي لتشمل الاسم
+      // ============================================
+      // Theme Toggle
+      // ============================================
+      const themeToggle = document.getElementById('themeToggle');
+      const body = document.body;
+
+      const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+      body.classList.add(savedTheme);
+      updateThemeIcon(savedTheme);
+
+      themeToggle.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+          body.classList.remove('dark-mode');
+          body.classList.add('light-mode');
+          localStorage.setItem('theme', 'light-mode');
+          updateThemeIcon('light-mode');
+        } else {
+          body.classList.remove('light-mode');
+          body.classList.add('dark-mode');
+          localStorage.setItem('theme', 'dark-mode');
+          updateThemeIcon('dark-mode');
+        }
+      });
+
+      function updateThemeIcon(theme) {
+        themeToggle.textContent = theme === 'dark-mode' ? '☀️' : '🌙';
+      }
+
+      // ============================================
+      // Sidebar Toggle
+      // ============================================
+      const sidebarToggle = document.getElementById('sidebarToggle');
+      const sidebar = document.getElementById('sidebar');
+      const sidebarClose = document.getElementById('sidebarClose');
+      const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+      sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.add('active');
+        sidebarOverlay.classList.add('active');
+      });
+
+      sidebarClose.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+      });
+
+      sidebarOverlay.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        sidebarOverlay.classList.remove('active');
+      });
+
+      // ============================================
+      // Search Functionality
+      // ============================================
+      const searchInput = document.getElementById('searchInput');
+      const searchResults = document.getElementById('searchResults');
+
+      const animeDatabase = [
+        { id: 1, title: 'هجوم العمالقة', rating: 9.8 },
+        { id: 2, title: 'ون بيس', rating: 9.5 },
+        { id: 3, title: 'قاتل الشياطين', rating: 9.7 },
+        { id: 4, title: 'ناروتو شيبودن', rating: 9.4 },
+        { id: 5, title: 'ديث نوت', rating: 8.9 },
+        { id: 6, title: 'كود جياس', rating: 8.8 },
+        { id: 7, title: 'سيتاما', rating: 9.0 },
+        { id: 8, title: 'جوجوتسو كايسن', rating: 8.7 },
+        { id: 9, title: 'توكيو غول', rating: 8.6 },
+      ];
+
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.trim();
+        if (!query) {
+          searchResults.classList.remove('active');
+          return;
+        }
+        const filtered = animeDatabase.filter(anime => anime.title.includes(query));
+        if (filtered.length === 0) {
+          searchResults.innerHTML = '<div style="padding: 1rem; text-align: center; color: var(--gray-400);">لم يتم العثور على نتائج</div>';
+        } else {
+          searchResults.innerHTML = filtered.map(anime => `
+            <div class="search-result-item" onclick="window.location.href='pages/episode.html?name=${encodeURIComponent(anime.title)}&season=1'">
+              <h4>${anime.title}</h4>
+              <p>⭐ ${anime.rating}/10</p>
+            </div>
+          `).join('');
+        }
+        searchResults.classList.add('active');
+      });
+
+      document.addEventListener('click', (e) => {
+        if (e.target !== searchInput && !searchInput.contains(e.target)) {
+          searchResults.classList.remove('active');
+        }
+      });
+
+      // ============================================
+      // Authentication UI & Sidebar Logic
+      // ============================================
+      async function updateAuthUI() {
+        const authNavItem = document.getElementById('auth-nav-item');
+        const heroButtons = document.getElementById('heroButtons');
+        const sidebarDynamicContent = document.getElementById('sidebarDynamicContent');
+        const { data: { session } } = await _supabase.auth.getSession();
+
+        if (session) {
+          const user = session.user;
+          const userName = user.user_metadata.full_name || user.email;
+          
+          // Update Header for Logged In User
+          authNavItem.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="color: white; font-weight: 600; display: none;" class="desktop-only">مرحباً، ${userName}</span>
+              <button onclick="handleLogout()" class="btn btn-login" style="background: #ef4444; border: none;">خروج</button>
+            </div>
+          `;
+
+          // Hide Hero Buttons
+          heroButtons.style.display = 'none';
+
+          // Add User Info to Sidebar
+          const userInfoHtml = `
+            <div class="sidebar-section">
+              <h4>الحساب</h4>
+              <div style="padding: 0.75rem 1rem; color: var(--white); background: rgba(168, 85, 247, 0.1); border-radius: 0.5rem; margin-bottom: 1rem;">
+                مرحباً، ${userName}
+              </div>
+            </div>
+          `;
+          
+          // Ensure sidebar has all links
+          if (!sidebarDynamicContent.innerHTML.includes('الحساب')) {
+            sidebarDynamicContent.insertAdjacentHTML('afterbegin', userInfoHtml);
+          }
+
+        } else {
+          // Not Logged In
+          authNavItem.innerHTML = `<a href="pages/Login.html" class="btn btn-login">دخول</a>`;
+          heroButtons.style.display = 'flex';
+        }
+      }
+
+      async function handleLogout() {
+        const { error } = await _supabase.auth.signOut();
+        if (error) alert("خطأ أثناء تسجيل الخروج: " + error.message);
+        else window.location.reload();
+      }
+
+      updateAuthUI();
+      _supabase.auth.onAuthStateChange(() => updateAuthUI());
+
+      // ============================================
+      // Update Anime Links
+      // ============================================
       function updateAnimeLinks() {
         const cards = document.querySelectorAll('.anime-card');
         cards.forEach(card => {
@@ -616,45 +1155,7 @@
           card.href = `pages/episode.html?name=${encodeURIComponent(title)}&season=1`;
         });
       }
-
       window.addEventListener('DOMContentLoaded', updateAnimeLinks);
-
-      async function updateAuthUI() {
-        const authNavItem = document.getElementById('auth-nav-item');
-        const { data: { session } } = await _supabase.auth.getSession();
-
-        if (session) {
-          const user = session.user;
-          const userName = user.user_metadata.full_name || user.email;
-          authNavItem.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 10px;">
-              <span style="color: white; font-weight: 600;">مرحباً، ${userName}</span>
-              <button onclick="handleLogout()" class="btn btn-login" style="background: #ef4444; border: none;">خروج</button>
-            </div>
-          `;
-        } else {
-          authNavItem.innerHTML = `
-            <a href="pages/Login.html" class="btn btn-login">دخول</a>
-          `;
-        }
-      }
-
-      async function handleLogout() {
-        const { error } = await _supabase.auth.signOut();
-        if (error) {
-          alert("خطأ أثناء تسجيل الخروج: " + error.message);
-        } else {
-          window.location.reload();
-        }
-      }
-
-      // Initial UI update
-      updateAuthUI();
-
-      // Listen for auth state changes
-      _supabase.auth.onAuthStateChange((event, session) => {
-        updateAuthUI();
-      });
     </script>
   </body>
 </html>
